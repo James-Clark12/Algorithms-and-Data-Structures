@@ -1,0 +1,54 @@
+class DbLinkedList {
+  constructor(value) {
+    const node = {value, prev: null, next: null};
+    this.head = node;
+  }
+  addToHead(value) {
+    const node = {value, next: this.head, prev: null};
+    node.next.prev = node;
+    this.head = node;
+  }
+  printList() {
+    let node = this.head;
+    console.log('Starting at the head');
+    while(node !== null) {
+      console.log(node.value);
+      node = node.next;
+    }
+  }
+  checkIfPalindrome() {
+    let start = this.head;
+    let end = this.head;
+    while(end.next !== null) {
+      end = end.next;
+    }
+    while(start !== end) { //if even amount wont end the loop
+      console.log('Start is: ', start.value, ' and end is: ', end.value);
+      if(start.value !== end.value) {
+        return false;
+      }
+      if (end.prev === start && start.value === end.value) {
+        return true;
+      }
+      start = start.next;
+      end = end.prev;
+    }
+    return true;
+  }
+}
+
+const ddll = new DbLinkedList('first');
+ddll.addToHead('second');
+ddll.addToHead('third');
+ddll.addToHead('first');
+ddll.addToHead('third');
+ddll.addToHead('first');
+ddll.addToHead('first');
+ddll.addToHead('third');
+ddll.addToHead('first');
+ddll.addToHead('third');
+ddll.addToHead('second');
+ddll.addToHead('first');
+
+ddll.printList();
+console.log(ddll.checkIfPalindrome());
