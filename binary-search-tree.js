@@ -1,0 +1,151 @@
+
+const Parent = (i) => {
+  return Math.ceil(i/2 - 1)
+}
+
+const Left = (i) => {
+  return i*2 + 1;
+}
+
+const Right = (i) => {
+  return i*2 + 2;
+}
+
+const Minimum = (array) => {
+  let index = 0;
+  while (index < array.length) {
+    index = Left(index);
+  }
+  index = Parent(index);
+  return array[index];
+}
+
+const MinimumWithIndex = (array, index) => {
+  while (index < array.length) {
+    index = Left(index);
+  }
+  index = Parent(index);
+  return index;
+}
+
+const Maximum = (array) => {
+  let index = 0;
+  while (index < array.length) {
+    index = Right(index);
+  }
+  index = Parent(index);
+  return array[index];
+}
+
+const TreeSearch = (array, element) => {
+  let index = 0;
+  while (index < array.length) {
+    if (array[index] === element) {
+      return index;
+    } else if (array[index] >= element) {
+      index = Left(index);
+    } else if (array[index] < element) {
+      index = Right(index);
+    }
+  }
+  return -1;
+}
+
+const PrintTree = (treeArray) => {
+  let level = 1;
+  for(let i=0; i<treeArray.length; i++) {
+    if (i === (level-1)) {
+      console.log('\n***** Level: ', level, '*****\n');
+      level = level * 2;
+    }
+    console.log(' ', treeArray[i], ' ');
+  }
+}
+
+const InsertElement = (array, element) => {
+  let i = 0;
+  if (array[0] === undefined) {
+    array[0] = element;
+    return;
+  }
+  while (i < array.length) {
+    console.log('i is: ', i, ' array[i] is: ', array[i], ' element is: ', element);
+    if (array[i] === undefined) {
+      break;
+    } else if (array[i] >= element) {
+      console.log('array item is greater than element');
+      i = Left(i);
+    } else if (element > array[i]) {
+      console.log('array item is less than element');
+      i = Right(i);
+    };
+    console.log('how here?');
+  }
+  i = Parent(i);
+  if (array[i] >= element) {
+    array[Left(i)] = element;
+  } else {
+    array[Right(i)] = element;
+  }
+}
+
+/* Deleting an element is the most complex BST operation
+There are three cases to consider:
+1. Element to be deleted has no children - easy, just delete it
+2. Element to be deleted has one child - easy just replace it with its child (and move that child's children correspondingly)
+3. Element to be deleted has two children - most complex scenario - soution described below
+
+An important property of BSTs is that the same set of elements can be represented by multiple BST's - what determines the
+structure of a BST is the order in which elements are inserted - not the set of elements themselves. Deleting a node takes
+advantage of this by chaing the structure of the BST to one which makes sense despite that node being removeDuplicates
+
+The method to do this is:
+1. Get the node to be deleted's successor - this is the smallest element greater than the node to be deleted  (just the min of the node right subtree)
+2. Overwrite the value of the node to be deleted with the value of the successor
+3. Call the delete funcion again on the successor node's position (so the delete function is called recursively until a node can be removed according to cases
+1 and 2 rather than 3)
+
+Beautiful and simple! - but don't forget there is some complexity in moving the children in case 2
+*/
+
+const DeleteElementAtIndex = (array, i) => {
+  /*Case 1*/
+  if (array[Left(i)] === undefined && array[Right(i)] === undefined) {
+    array[i] = undefined;
+    return;
+  }
+  /*Case 2*/
+  if (array[Left(i)] !== undefined && array[Right(i)] === undefined) {
+    array[i] = array[Left(i)];
+    return DeleteElementAtIndex(array, Left(i));
+  }
+  if (array[Right(i)] !== undefined && array[Left(i)] === undefined) {
+    array[i] = array[Right(i)];
+    return DeleteElementAtIndex(array, Right(i));
+  }
+  /*Case 3*/
+  if (array[Left(i)] !== undefined && array[Right(i)] !== undefined) {
+    const successorIndex = MinimumWithIndex(array, Right(i));
+    array[i] = array[successorIndex];
+    DeleteElementAtIndex(array, successorIndex);
+  }
+}
+
+const bst = [];
+
+console.log('Running...');
+InsertElement(bst, 5);
+InsertElement(bst, 7);
+InsertElement(bst, 2);
+InsertElement(bst, 9);
+InsertElement(bst, 6);
+InsertElement(bst, 1);
+InsertElement(bst, 3);
+InsertElement(bst, 0);
+InsertElement(bst, 2);
+InsertElement(bst, 3);
+InsertElement(bst, 4);
+console.log('bst is: ', bst);
+PrintTree(bst);
+DeleteElementAtIndex(bst, 3);
+PrintTree(bst);
