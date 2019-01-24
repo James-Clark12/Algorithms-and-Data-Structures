@@ -4,6 +4,8 @@ bit numbers, the operation is carried out and then they are converted back
 /* If creating a bit vector recording flags - easiest thing to do is actually create a btye verctor (which is 8x less efficient) but 8x
 easier to write - can say that could write a bit vector but in js it is fiddly - but should offer to do it */
 
+Q - count the number of numbers that aren't unique in an array - solve with bit vector and byte vector
+
 /* To convert from binary string to decimal
 
 var sBinString = '1011';
