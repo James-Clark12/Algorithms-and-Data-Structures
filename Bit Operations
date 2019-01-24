@@ -1,6 +1,9 @@
 All numbers in JS are stored as 64-bit IEEE precision floats - but when you perform bit operations on them they are transformed to 32
 bit numbers, the operation is carried out and then they are converted back
 
+/* If creating a bit vector recording flags - easiest thing to do is actually create a btye verctor (which is 8x less efficient) but 8x
+easier to write - can say that could write a bit vector but in js it is fiddly - but should offer to do it */
+
 /* To convert from binary string to decimal
 
 var sBinString = '1011';
