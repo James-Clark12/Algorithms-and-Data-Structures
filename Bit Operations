@@ -1,6 +1,10 @@
 All numbers in JS are stored as 64-bit IEEE precision floats - but when you perform bit operations on them they are transformed to 32
 bit numbers, the operation is carried out and then they are converted back
 
+/* In addition to this should be comfortable with binary maths - adding, subtracting, multiplying and dividing
+
+Best refresher for that - http://www.binarymath.info/binary-division.php
+
 /* If creating a bit vector recording flags - easiest thing to do is actually create a btye verctor (which is 8x less efficient) but 8x
 easier to write - can say that could write a bit vector but in js it is fiddly - but should offer to do it */
 
