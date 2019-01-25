@@ -10,6 +10,12 @@ easier to write - can say that could write a bit vector but in js it is fiddly -
 ** Easiest is to just use a normal var - it is a 64 bit value free to edit with the operations below - not sure if typed arrays
 are really any use for the purposes of academic bit maths (example of bit vector at the bottom)
 
+/* Flip bits (more reliable than ~ as you specify how many bits you are flipping)
+
+  var flipbits = function (v, digits) {
+      return ~v & (Math.pow(2, digits) - 1);
+  }
+
 /* To convert from binary string to decimal
 
 var sBinString = '1011';
