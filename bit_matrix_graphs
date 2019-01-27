@@ -1,0 +1,89 @@
+
+const createBitMatrix = (vertexNo) => {
+  // this is the reliable way to create a 2 dimensional array
+  const matrix = new Array(vertexNo).fill(0).map(() => new Array(vertexNo).fill(0));
+  return matrix;
+}
+
+// whether it is directional determines the symmetry
+const addEdge = (vertex1, vertex2, matrix, directional=false) => {
+  console.log('vertex1 and vertex2: ', vertex1, vertex2);
+  console.log(matrix[vertex1][vertex2]);
+  if (vertex1 > matrix.length || vertex2 > matrix.length) {
+    console.log('Out of bounds');
+  }
+  matrix[vertex1][vertex2] = 1;
+  if (!directional) {
+   matrix[vertex2][vertex1] = 1;
+  }
+}
+
+const deleteEdge = (v1, v2, matrix, directional=false) => {
+  if (v1 > matrix.length || v2 > matrix.length) {
+    console.log('Out of bounds');
+  }
+  matrix[v1][v2] = 0;
+  if (!directional) {
+    matrix[v2][v1] = 0;
+  }
+}
+
+const checkEdge = (v1, v2, matrix) => {
+  if (v1 > matrix.length || v2 > matrix.length) {
+    console.log('Out of bounds');
+  }
+  return matrix[v1][v2];
+}
+
+/*
+-First question - how do you get a list of nodes from a bitMatrix? - answer - using the edges - every num with an edge must have
+a vertex. However - there could be disconnected nodes without edges which this method will ignore. (Should have list of nodes first)
+
+-Regardless - starting with just one vertex 1 in a directionless graph - what does DFS looklike?
+-iterating through the array - take the first path possible - same recursive structure as before
+*/
+
+// Works well
+const DFS = (matrix, vertex, visited) => {
+  visited.set(vertex);
+  for(let i=0; i<matrix.length; i++) {
+    if (matrix[vertex][i] === 1) {
+      if (!visited.has(i)) {
+        console.log('At ', vertex);
+        console.log('Taking route: ', vertex, ' ', i);
+        DFS(matrix, i, visited);
+      }
+    }
+  }
+}
+
+// Works very nicely
+const BFS = (matrix, vertex) => {
+  const Q = new Set();
+  const visited = new Map();
+  visited.set(vertex);
+  Q.add(vertex);
+  while (Q.size) {
+    const qItems = [...Q];
+    const v = qItems.shift();
+    console.log('At ', v);
+    visited.set(v);
+    Q.delete(v);
+    for(let i=0; i<matrix.length; i++) {
+      if (matrix[v][i] === 1 && !visited.has(i)) {
+        console.log('Adding path to: ', i);
+        Q.add(i);
+      }
+    }
+  }
+}
+
+const newMx = createBitMatrix(6);
+addEdge(1,0,newMx);
+addEdge(1,2,newMx);
+addEdge(2,5,newMx);
+addEdge(5,2,newMx);
+addEdge(5,4,newMx);
+addEdge(2,4,newMx);
+console.log(newMx);
+BFS(newMx, 1);
