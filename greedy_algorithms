@@ -1,0 +1,49 @@
+Greedy Algorithms
+
+A greedy algorithm, as the name suggests, always makes the choice that seems to be the best at that moment. This means 
+that it makes a locally-optimal choice in the hope that this choice will lead to a globally-optimal solution.
+
+How do you decide which choice is optimal?
+
+Assume that you have an objective function that needs to be optimized (either maximized or minimized) at a given point. 
+A Greedy algorithm makes greedy choices at each step to ensure that the objective function is optimized. The Greedy 
+algorithm has only one shot to compute the optimal solution so that it never goes back and reverses the decision.
+
+Knowing when you can use Greedy algorithms is the hard part
+
+A problem must comprise these two components for a greedy algorithm to work:
+
+It has optimal substructures. The optimal solution for the problem contains optimal solutions to the sub-problems.
+
+It has a greedy property (hard to prove its correctness!). If you make a choice that seems the best at the moment and 
+solve the remaining sub-problems later, you still reach an optimal solution. You will never have to reconsider your earlier choices
+
+***Alternative Description ******
+If both of the properties below are true, a greedy algorithm can be used to solve the problem.
+
+Greedy choice property: A global (overall) optimal solution can be reached by choosing the optimal choice at each step.
+
+Optimal substructure: A problem has an optimal substructure if an optimal solution to the entire problem contains the
+optimal solutions to the sub-problems.
+*********************************
+
+The difficult part is that for greedy algorithms you have to work much harder to understand correctness issues. 
+Even with the correct algorithm, it is hard to prove why it is correct. 
+
+Example of a trivial problem where greedy method works
+
+Being a very busy person, you have exactly T time to do some interesting things and you want to do maximum such things.
+You are given an array A of integers, where each element indicates the time a thing takes for completion. You want to 
+calculate the maximum number of things that you can do in the limited time that you have.
+
+However, if we start to associate an additional priority value to these tasks then the problem becomes much more complex
+and the application of a greedy algorithm harder.
+
+Famous Example Problems
+-Activity selection problem
+-Fracitional Knapsack problem
+-Scheduling problem
+
+Popular greedy algorithms
+Dijkstra
+
