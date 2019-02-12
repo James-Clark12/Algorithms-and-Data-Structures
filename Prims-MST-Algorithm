@@ -1,0 +1,211 @@
+///Min Priority Queue////
+
+const Parent = (i) => {
+  return Math.ceil(i/2 - 1);
+}
+
+const Left = (i) => {
+  return (i*2) + 1;
+}
+
+const Right = (i) => {
+  return (i*2) + 2;
+}
+
+const swap = (num1, num2, array) => {
+    const temp = array[num1];
+    array[num1] = array[num2];
+    array[num2] = temp;
+}
+
+const MinHeapify = (array, i, heapSize = array.length) => {
+  let l = Left(i);
+  let r = Right(i);
+  let smallest = i;
+  if (l < heapSize && array[l]['weight'] < array[i]['weight']) {
+    smallest = l;
+  }
+  if (r < heapSize && array[r]['weight'] < array[smallest]['weight']) {
+    smallest = r;
+  }
+  if (i !== smallest) {
+    swap(i, smallest, array);
+    MinHeapify(array, smallest, heapSize);
+  }
+  return array;
+}
+
+const BuildMinHeap = (array) => {
+  for (let i=Math.ceil(array.length/2); i>-1; i--) {
+    MinHeapify(array, i);
+  }
+  return array;
+}
+
+const IncreaseKey = (array, i, newValue) => {
+  if (newValue['weight'] < array[i]['weight']) {
+    return 'Value is smaller';
+  }
+  array[i]['edges'] = newValue['edges'];
+  array[i]['weight'] = newValue['weight'];
+  while (array[Parent(i)] !== undefined && array[i]['weight'] > array[Parent(i)]['weight'] && i > 0) {
+    swap(i, Parent(i), array);
+    i = Parent(i);
+  }
+}
+
+const DecreaseKey = (array, i, newValue) => {
+  if (newValue['weight'] > array[i]['weight']) {
+    return 'Value is larger';
+  }
+  array[i] = newValue;
+  while (array[Parent(i)] !== undefined && array[i]['weight'] < array[Parent(i)]['weight'] && i > 0) {
+    swap(i, Parent(i), array);
+    i = Parent(i);
+  }
+}
+
+const HeapMinSort = (array) => {
+  BuildMinHeap(array);
+  console.log(array);
+  let heapSize = array.length - 1;
+  while (heapSize > 2) {
+    swap(0, heapSize, array);
+    heapSize = heapSize - 1;
+    MinHeapify(array, 0, heapSize);
+  }
+  swap(0, 1, array);
+  return array;
+}
+
+const ExtractMin = (array) => {
+  swap(0, array.length-1, array);
+  const min = array[array.length - 1];
+  array.length = array.length - 1;
+  MinHeapify(array, 0, array.length - 1);
+  return min;
+}
+
+const insertMinHeap = (element, array) => {
+  array[array.length] = {weight: Infinity, edges: element.edges};
+  DecreaseKey(array, array.length-1, element);
+}
+//////////
+
+const isDirected = (graph) => {
+  return false;
+  // check is more complicated than you would thing -
+  // if not directed - for each edge from a-b, there is an edge b-a with the same weight
+}
+
+
+const addVertices = (vertices, graph) => {
+  vertices.forEach(p => {
+    graph.set(p, new Map());
+  });
+}
+
+const addEdge = (vertex1, vertex2, graph, directed=false, weight=0) => {
+  graph.get(vertex1).set(vertex2, weight);
+  if (directed) {
+    graph.get(vertex2).set(vertex1, weight);
+  }
+}
+
+const removeEdge = (vertex1, vertex2, graph, directed=false) => {
+  graph.get(vertex1).delete(vertex2);
+  if (directed) {
+    graph.get(vertex2).delete(vertex1);
+  }
+}
+
+// const minHeapTest = [];
+// const unsortedPrep = [4,7,1,4,9,2,4];
+// const unsorted = unsortedPrep.map(p => {
+//   return {weight: p, edges:[]};
+// });
+// console.log('unsorted is: ', unsorted);
+// const minHeap = BuildMinHeap(unsorted);
+// console.log('minHeap is: ', minHeap);
+// insertMinHeap({weight: 0, edges: []}, minHeap);
+// console.log('minHeap is: ', minHeap);
+// insertMinHeap({weight: -2, edges: []}, minHeap);
+// console.log('minHeap is: ', minHeap);
+// insertMinHeap({weight: 1, edges: []}, minHeap);
+// console.log('minHeap is: ', minHeap);
+// startVertex can be any vertex, it makes no difference
+const prims = (graph, startVertex) => {
+    // only works for non-directed graphs - if directed it wont works - does it work if cycles present?...
+    // in a directionless graph cycles are just two weight options so one edge will just be ignored
+    // can deal with them fine
+    if (isDirected(graph)) return 'Error - only works for non-directed graphs';
+
+    const mst = new Map();
+    const Q = []; //min priority Q
+    const visited = [];
+
+    // add all nodes to MST - so edges can be added later
+    addVertices([...graph.keys()], mst);
+
+    //mark startVertex as visited
+    visited.push(startVertex);
+
+    // add all outgoing edges from startVertex
+    [...graph.get(startVertex).keys()].forEach(neighbour => {
+        // add to Q {edge,weight}
+        const weight = graph.get(startVertex).get(neighbour);
+        const identity = {edges: [startVertex, neighbour], weight};
+        insertMinHeap(identity, Q);
+    });
+    console.log('Q is: ', Q);
+
+    while(Q.length) {
+      const min = ExtractMin(Q);
+      console.log('Q is: ', Q);
+      if (visited.includes(min['edges'][1])) {
+        // edge is of no use
+        console.log('Edge ', (min['edges'][1]) , ' is already visited');
+      } else {
+        // get the untouched vertex
+        let newVertex = null;
+        if (!visited.includes(min['edges'][0])) {
+          newVertex = min['edges'][0];
+        } else {
+          newVertex = min['edges'][1];
+        }
+
+        //add newVertex to visited
+        console.log('visited is: ', visited, ' and new vertix is: ', newVertex);
+        visited.push(newVertex);
+
+        // add vertex and edge to MST
+        console.log('adding edge: ', min['edges'][0], ' to: ', min['edges'][1]);
+        mst.get(min['edges'][0]).set(min['edges'][1], min['weight']);
+        mst.get(min['edges'][1]).set(min['edges'][0], min['weight']);
+
+        //get all edges from newVertex to unvisited nodes and add them to Q
+        const newVertexNeighbours = [...graph.get(newVertex).keys()];
+        newVertexNeighbours.forEach(neighbourKey => {
+          if (!visited.includes(neighbourKey)) {
+            const weight = graph.get(newVertex).get(neighbourKey);
+            const identity = {weight, edges: [newVertex, neighbourKey]};
+            insertMinHeap(identity, Q);
+          }
+      });
+    }
+  }
+  console.log('MST is: ', mst);
+
+}
+const graph = new Map();
+const vertices = ['a','b','c','d','e','f','g'];
+addVertices(vertices, graph);
+addEdge('a','b',graph, true, 3);
+addEdge('a','c',graph, true, 2);
+addEdge('b','d',graph, true, 5);
+addEdge('d','e',graph, true, 3);
+addEdge('e','g',graph, true, 1);
+addEdge('d','f',graph, true, 15);
+addEdge('e','f',graph, true, 1);
+console.log('graph is: ', graph);
+prims(graph, 'a');
