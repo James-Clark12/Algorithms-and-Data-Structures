@@ -1,0 +1,27 @@
+merges two arrays into an ordered array
+const merge = (left, right) => {
+  let l = 0;
+  let r = 0;
+  const sorted = [];
+  while (l < left.length && r < right.length) {
+    if (left[l] < right[r]) {
+      sorted.push(left[l]);
+      l = l + 1;
+    } else {
+      sorted.push(right[r]);
+      r = r + 1;
+    }
+  }
+  return sorted.concat(left.slice(l)).concat(right.slice(r));
+}
+
+// takes an array - splits it recursively - calls merge on each split on the backwards return call
+const mergeSort = (array) => {
+  if (array.length < 2) {
+    return array;
+  }
+  const middle = Math.floor(array.length / 2);
+  const left = array.slice(0, middle);
+  const right = array.slice(middle);
+  return merge(mergeSort(left), mergeSort(right));
+}
