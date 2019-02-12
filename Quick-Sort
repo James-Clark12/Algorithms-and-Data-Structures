@@ -1,0 +1,29 @@
+/* QUick sort practice */
+
+// so quicksort as an algorithm recursively splits up the array into pieces
+// at each stage a pivot is used (the far right item) and elements are sorted around it as higer or lower
+//
+// const quicksort = (array, left, right) => {
+//   if (left < right) {
+//     const pivot = right;
+//     const partitionIndex = partition(array, left, right, pivot);
+//     quicksort(array, partitionIndex + 1, right);
+//     quicksort(array, left, partitionIndex - 1);
+//   }
+//   return array;
+// }
+//
+// // given a pivot - elements are sorted arround it - and the location of the pivot at the end is returned
+// const partition = (array, left, right, pivot) => {
+//   const partitionValue = array[pivot];
+//   let newPartitionIndex = left;
+//   let i = left;
+//   for (; i < right; i++) {
+//     if (array[i] < partitionValue) {
+//       swap(array, i, newPartitionIndex);
+//       newPartitionIndex = newPartitionIndex + 1;
+//     }
+//   }
+//   swap(array, i, newPartitionIndex);
+//   return newPartitionIndex;
+// }
