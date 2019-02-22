@@ -1,0 +1,20 @@
+// const countSort = (array, start, end) => {
+//   const range = end - start;
+//   const record = new Array(range);
+//   record.fill(0);
+//   for(let i=0; i<array.length; i++) {
+//     record[array[i] - start] += 1;
+//   }
+//   const response = [];
+//   for (let i=0; i<record.length; i++) {
+//     while(record[i] > 0) {
+//       response.push(i + start);
+//       record[i] -= 1;
+//     }
+//   }
+//   console.log(record);
+//   console.log(response);
+// }
+//
+// const unsortedArray = [10,14,12,12,15,17,19,11,12];
+// countSort(unsortedArray, 10, 20);
