@@ -37,7 +37,7 @@ const bucketSort = (array, numberOfBuckets) => {
       max = array[i];
     }
   }
-  const buckets = new Array(numberOfBuckets).fill(0);
+  const buckets = new Array(numOfBuckets).fill(0).map(p => new Array());
   const range = (max - min);
   const bucketInterval = range / numberOfBuckets;
   for (let i=0; i<array.length; i++) {
@@ -46,7 +46,7 @@ const bucketSort = (array, numberOfBuckets) => {
   let sorted = [];
   for (let i=0; i<buckets.length; i++) {
     insertionSort(buckets[i]);
-    sorted = sorted.concat(buckets[i]);
+    buckets[i].forEach(p => sortedArray.push(p))
   }
   return sorted;
 }
