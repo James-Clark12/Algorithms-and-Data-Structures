@@ -2,28 +2,39 @@
 
 // so quicksort as an algorithm recursively splits up the array into pieces
 // at each stage a pivot is used (the far right item) and elements are sorted around it as higer or lower
-//
-// const quicksort = (array, left, right) => {
-//   if (left < right) {
-//     const pivot = right;
-//     const partitionIndex = partition(array, left, right, pivot);
-//     quicksort(array, partitionIndex + 1, right);
-//     quicksort(array, left, partitionIndex - 1);
-//   }
-//   return array;
-// }
-//
-// // given a pivot - elements are sorted arround it - and the location of the pivot at the end is returned
-// const partition = (array, left, right, pivot) => {
-//   const partitionValue = array[pivot];
-//   let newPartitionIndex = left;
-//   let i = left;
-//   for (; i < right; i++) {
-//     if (array[i] < partitionValue) {
-//       swap(array, i, newPartitionIndex);
-//       newPartitionIndex = newPartitionIndex + 1;
-//     }
-//   }
-//   swap(array, i, newPartitionIndex);
-//   return newPartitionIndex;
-// }
+//const unsortedArray = [12,1,32,1,5555,12,54,74,9,2234,634576548,23,-12,123,55,3,12];
+
+// store value of pivot
+// iterate through array, for each value - if it less that the pivot value,
+// swap it to the front of the array keeping track of how many have been
+// swapped using newPartition Index - then return new Partition index
+
+const swap = (array, left, right) => {
+    const temp = array[left];
+    array[left] = array[right];
+    array[right] = temp;
+}
+
+const partition = (array, left, right) => {
+    const partitionValue = array[right];
+    let newPartitionIndex = left;
+    for(let i=left; i<right; i++) {
+        if(array[i] < partitionValue) {
+            swap(array, i, newPartitionIndex);
+            newPartitionIndex = newPartitionIndex+1;
+        }
+    }
+    swap(array, newPartitionIndex, right);
+    return newPartitionIndex;
+}
+
+const quickSort = (array, left, right) => {
+    if (left < right) {
+        const partitionIndex = partition(array, left, right);
+        quickSort(array, partitionIndex+1, right);
+        quickSort(array, left, partitionIndex-1);
+    }
+    return array;
+}
+
+console.log(quickSort(unsortedArray, 0, unsortedArray.length-1));
