@@ -1,4 +1,13 @@
-merges two arrays into an ordered array
+
+Mergesort is simpler that it seems. It consists of two parts:
+
+1. a recursive method (mergeSort) which recursively splits arrays into halves,
+2. an interative method that merges two sorted arrays (merge)
+
+The recursive method leaves you with single element arrays which are by definition sorted, and then on the recursive
+returns the iterative merge method repeatedly combines two sorted arrays into a larger sorted array.
+
+merges two sorted arrays into an ordered array
 const merge = (left, right) => {
   let l = 0;
   let r = 0;
