@@ -60,8 +60,13 @@ const quickSelect = (array, left, right, element) => {
             return quickSelect(array, left, partitionIndex-1, element);
         }
     }
-    return array[right];
-}
+    // right and left are the same by this point
+    if (array[right] === element) {
+        return right;
+    } else {
+        return -1;
+    }
+}}
 
 const unsortedArray = [12,1,32,1,5555,12,54,74,9,2234,634576548,23,-12,123,55,3,12];
 
