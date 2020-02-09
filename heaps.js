@@ -91,6 +91,7 @@ const IncreaseKey = (array, i, newValue) => {
   }
 }
 
+// This is in a MinHeap
 const DecreaseKey = (array, i, newValue) => {
   if (newValue > array[i]) {
     return 'Value is larger';
@@ -100,6 +101,15 @@ const DecreaseKey = (array, i, newValue) => {
     swap(i, Parent(i), array);
     i = Parent(i);
   }
+}
+
+// In a max Heap a descrease Key func would be as simpel as:
+const DecreaseKey = (array, i, newValue) => {
+ if (newValue > array[i]) {
+  return 'Value is larger not smaller' 
+ };
+ array[i] = newValue;
+ MaxHeapify(array, i, array.length-1);
 }
 
 const HeapMaxSort = (array) => {
