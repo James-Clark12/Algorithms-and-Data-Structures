@@ -23,7 +23,8 @@ const swap = (num1, num2, array) => {
     array[num2] = temp;
 }
 
-// ensures an element isnt higher than it should be
+// ensures an element isnt higher than it should be by recursively checking an element against its children,
+// and if it is smaller than them, swapping their position and doing the same check on the new position
 const MaxHeapify = (array, i, heapSize = array.length) => {
   let l = Left(i);
   let r = Right(i);
