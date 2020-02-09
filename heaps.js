@@ -66,6 +66,9 @@ const MinHeapify = (array, i, heapSize = array.length) => {
   return array;
 }
 
+// Only calling the heapify operation of the first half of the does make sense when you think of the array
+// structure - but should consider the mathematical definition of what proporition of the array needs to be
+// called on in order to ensure that the comparisons are complete
 const BuildMinHeap = (array) => {
   for (let i=Math.ceil(array.length/2); i>-1; i--) {
     MinHeapify(array, i);
