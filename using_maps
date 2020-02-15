@@ -1,0 +1,62 @@
+// Using the JS Map
+
+// The map object holds key-value pairs and remembers the original insertion order of keys
+// both objects and primitive values can be either keys or values
+
+// Objects are similar to maps, however as objects have a prototype they contain default keys that can collide with new keys
+
+// methods:
+
+let myMap = new Map() // create a new map
+myMap.size              // returns number of keys in Map
+
+Map.clear() // removes all key value pairs from the Map
+Map.delete('key') // returns true if the key exists and has been removed, false otherwise
+
+Map.get('key') // returns value at key or undefined if there is none
+Map.has('key') // returns boolean on whether there is a value at the key
+Map.set('key', 'value')  Set the value for the key - returns the Map object
+
+Map.forEach(callbackFunction) // calls the callbackFunction on each key-value pair
+
+myMap.forEach(function(value, key) {
+  console.log(key + ' = ' + value)
+})
+
+// Create a map in a map
+
+let myMap = new Map() // create a new map
+myMap.set(1, new Map([[3,4]]);
+myMap.get(1).get(3) // returns 4
+
+// Converting arrays into maps and viceversa
+
+let kvArray = [['key1', 'value1'], ['key2', 'value2']]
+
+// Use the regular Map constructor to transform a 2D key-value Array into a map
+let myMap = new Map(kvArray)
+
+myMap.get('key1') // returns "value1"
+
+// Use Array.from() to transform a map into a 2D key-value Array
+console.log(Array.from(myMap)) // Will show you exactly the same Array as kvArray
+
+// A succinct way to do the same, using the spread syntax
+console.log([...myMap])
+
+//Merge two maps
+
+let first = new Map([
+  [1, 'one'],
+  [2, 'two'],
+  [3, 'three'],
+])
+
+let second = new Map([
+  [1, 'uno'],
+  [2, 'dos']
+])
+
+// Merge two maps. The last repeated key wins.
+// Spread operator essentially converts a Map to an Array
+let merged = new Map([...first, ...second])
