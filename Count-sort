@@ -1,3 +1,9 @@
+// if operating with string the js operations to access the unicode value of a char is:
+
+('string').codePointAt()
+
+'ABC'.codePointAt(1)           // 66
+
 // const countSort = (array, start, end) => {
 //   const range = end - start;
 //   const record = new Array(range);
