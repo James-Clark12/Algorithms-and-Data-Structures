@@ -1,0 +1,32 @@
+
+
+const swap = (array, left, right) => {
+    const temp = array[left];
+    array[left] = array[right];
+    array[right] = temp;
+}
+
+const partition = (array, left, right) => {
+    const partitionValue = typeof array[right] === "string" ? (`${array[right]}`).codePointAt(0) : array[right];
+    let newPartitionindex = left;
+    for(let i=left; i<right; i++) {
+        const value = typeof array[i] === "string" ? (`${array[i]}`).codePointAt(0) : array[i];
+        if (value < partitionValue) {
+            swap(array, i, newPartitionindex);
+            newPartitionindex = newPartitionindex+1;
+        }
+    }
+    swap(array, newPartitionindex, right);
+    return newPartitionindex;
+}
+
+const quickSort = (array, left, right) => {
+    if (left < right) {
+        const partitionIndex = partition(array, left, right);
+        quickSort(array, partitionIndex+1, right);
+        quickSort(array, left, partitionIndex-1);
+    }
+    return array;
+}
+
+console.log(quickSort([4,6,1,24,6,8,'f','q',4,2,5], 0, [4,1,2,6,1,24,6,8,4,2,5].length-1));
