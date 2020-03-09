@@ -1,3 +1,18 @@
+// Important thing to be aware of - the methods of this class will all fail/ behave unusually IF the linkedList is constructed
+// without a value passed - the first element in the LL will be an empty object {value: undefined, next: null}
+
+// working with this is possible but confusing - it is better to add a conditional in the constructor like: 
+
+//     constructor(value) {
+//         if (value !== undefined) {
+//             const node = {value, next: null};
+//             this.head = node;
+//             node.next = null;
+//         } else {
+//             this.head = null;
+//         }
+//     }
+
 class LinkedList {
   // value has to be passed to the constructor
   constructor(value) {
