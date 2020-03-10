@@ -15,23 +15,63 @@
 // you can delete it even without a reference to B by overwriting C with D's data, and D with E's data, and then deleting E
 
 class LinkedList {
-  // value has to be passed to the constructor
-  constructor(value) {
-    const node = {value, next: null};
-    this.head = node;
-    node.next = null;
-  }
-  addToHead(value) {
-    const node = {value, next: this.head};
-    this.head = node;
-  }
-  printList() {
-    let node = this.head;
-    while(node !== null) {
-      console.log(node.value);
-      node = node.next;
+    constructor(value) {
+      this.head = null;
+      if (value !== undefined) {
+          this.head = {value, next: null};
+      }
     }
-  }
+
+    //assumes head is initiliased
+    getTail = () => {
+        let node = this.head;
+        while(node.next !== null) {
+            node = node.next;
+        }
+        return node;
+    }
+
+    // things are added to the front of the list
+    addToHead = (value) => {
+        const node = this.head;
+        this.head = {value, next: node};
+    }
+
+    // add to the end of this
+    addToTail = (value) => {
+        if (this.head === null) {
+            this.head = {value, next: null};
+        } else {
+            let node = this.getTail();
+            node.next = {value, next: null};
+        }
+    }
+
+    bulkAddToHead = (arr) => {
+        arr.forEach(element => {
+           this.addToHead(element);
+        });
+    }
+
+    bulkAddToTail = (arr) => {
+        arr.forEach(element => {
+           this.addToTail(element);
+        });
+    }
+
+    printList = () => {
+        if (this.head === null) {
+            console.log('Empty list');
+        } else {
+            console.log('//////////////////// List Start ////////////////////');
+            let node = this.head;
+            while (node !== null) {
+                console.log(node.value);
+                node = node.next;
+            }
+            console.log('//////////////////// List End ////////////////////');
+        }
+    }
   removeDuplicates() {
     let firstNode = this.head;
     while(firstNode !== null) {
@@ -72,18 +112,26 @@ class LinkedList {
     }
   }
 
-  removeMiddleNode(nodeValue) {
-    let firstNode = this.head;
-    let secondNode = firstNode.next;
-    while(secondNode.next !== null) {
-      if (secondNode.value === nodeValue) {
-        firstNode.next = secondNode.next;
-        secondNode = secondNode.next;
-      } else {
-        firstNode = firstNode.next;
-        secondNode = secondNode.next;
+  removeMiddleNode = () => {
+      let prevNode = this.head;
+      let pointer = this.head;
+      let runner = this.head;
+      // if list length 1 remove head
+      if (this.head === null || this.head.next === null) {
+          this.head = null;
+          return;
       }
-    }
+      let counter = true;
+      // else remove middle node
+      while(runner.next !== null) {
+          if (counter) {
+              prevNode = pointer;
+              pointer = pointer.next;
+          }
+          counter = !counter;
+          runner = runner.next;
+      }
+      prevNode.next = pointer.next;
   }
   /* assumes that list has atleast k length */
   returnKthToLast(k) {
