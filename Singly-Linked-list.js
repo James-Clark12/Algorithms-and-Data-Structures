@@ -5,13 +5,14 @@
 
 //     constructor(value) {
 //         if (value !== undefined) {
-//             const node = {value, next: null};
-//             this.head = node;
-//             node.next = null;
+//             this.head = {value, next: null};
 //         } else {
 //             this.head = null;
 //         }
 //     }
+
+// General idea - suppose linked list A,B,C,D,E - you have a link to C and need to delete it
+// you can delete it even without a reference to B by overwriting C with D's data, and D with E's data, and then deleting E
 
 class LinkedList {
   // value has to be passed to the constructor
