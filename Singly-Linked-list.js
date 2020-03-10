@@ -72,26 +72,25 @@ class LinkedList {
             console.log('//////////////////// List End ////////////////////');
         }
     }
-  removeDuplicates() {
-    let firstNode = this.head;
-    while(firstNode !== null) {
-      let thirdNode = firstNode;
-      let secondNode = firstNode.next;
-      // console.log('First node is: ', firstNode.value);
-      while(secondNode !== null) {
-        if (firstNode.value === secondNode.value) {
-          thirdNode.next = secondNode.next;
-          secondNode = secondNode.next;
-        } else {
-          thirdNode = thirdNode.next;
-          secondNode = secondNode.next;
-        }
-      }
-      firstNode = firstNode.next;
-    }
-  }
+    
+    
+    removeDuplicates = () => {
+        if (this.head === null) return 'Empty list';
+        let pointer = this.head;
+        while(pointer !== null) {   
+            let runner = pointer;
+            while(runner.next !== null) {
+                if (runner.next.value === pointer.value) {
+                    runner.next = runner.next.next;
+                } else {
+                    runner = runner.next;
+                }
 
-  /* So the problem with the above implementation is how the firstNode follows the secondNode */
+            }
+            pointer = pointer.next;
+        }
+        console.log('Duplicates removed');
+    }
 
   removeDuplicatesWithArray() {
     let firstNode = this.head;
