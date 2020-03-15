@@ -13,6 +13,7 @@
 // const binarySearch = (array, element) => {
 //   let left = 0;
 //   let right = array.length - 1;
+     // <= allows the func to work even if an array had a single element, or we narrow the array down to a single element
 //   while (left <= right) {
 //     printSegment(array, left, right);
 //     const middle = left + Math.floor((right - left) / 2);
