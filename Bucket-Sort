@@ -1,23 +1,21 @@
-const putInBucket = (buckets, element, interval, base, max) => {
-  const bucketIndex = Math.floor((element - base) / interval);
-//  console.log('bucketIndex is: ', bucketIndex, ' and buckets are: ', buckets);
-  if (element === max) {
-    buckets[bucketIndex - 1].push(element);
-  } else {
-    buckets[bucketIndex].push(element);
-  }
+
+const swap = (arr, one, two) => {
+    const temp = arr[one];
+    arr[one] = arr[two];
+    arr[two] = temp;
 }
 
 const insertionSort = (array) => {
-  for(let i=0; i<array.length; i++) {
-    let j = i;
-    while (j > 0 && array[j] < array[j-1]) {
-      swap(array, j, j-1);
-      j--;
+    for(let i=0; i<array.length; i++) {
+      let j = i;
+      while (j > 0 && array[j] < array[j-1]) {
+        swap(array, j, j-1);
+        j--;
+      }
     }
-  }
-  return array;
+    return array;
 }
+
 
 // problem to be aware of - we calculate the interval as max - min / noOfBuckets
 // as a consequence min will always go in the first bucket which is fine
@@ -26,32 +24,49 @@ const insertionSort = (array) => {
 // Options
 // change the value of the max you passed when making the interval
 // in the putting in bucket function handle explicityl the max value
-const bucketSort = (array, numberOfBuckets) => {
-  let max = array[0];
-  let min = array[0];
-  for (let i=1; i<array.length; i++) {
-    if (array[i] < min) {
-      min = array[i];
+const putInBucket = (buckets, element, interval, min, max) => {
+    // calculate which bucket the item should go in
+    const bucketIndex = Math.floor((element-min) / interval);
+    // need an exception for the max
+    if (element === max) {
+        buckets[bucketIndex-1].push(element);
+    } else {
+        buckets[bucketIndex].push(element);
     }
-    if (array[i] > max) {
-      max = array[i];
-    }
-  }
-  const buckets = new Array(numOfBuckets).fill(0).map(p => new Array());
-  const range = (max - min);
-  const bucketInterval = range / numberOfBuckets;
-  for (let i=0; i<array.length; i++) {
-    putInBucket(buckets, array[i], bucketInterval, min, max);
-  }
-  let sorted = [];
-  for (let i=0; i<buckets.length; i++) {
-    insertionSort(buckets[i]);
-    buckets[i].forEach(p => sortedArray.push(p))
-  }
-  return sorted;
 }
 
-// const unsortedArray = [100, 111, 200, 167,140, 112, 121, 129, 134,156,167,192];
-// console.log('unsortedArray is: ', unsortedArray);
-// const sortedArray = bucketSort(unsortedArray, 5);
-// console.log('sortedArray is: ', sortedArray);
+const bucketSort = (array, numberOfBuckets) => {
+    // first find max and min
+    let max = array[0];
+    let min = array[0];
+    // find it by interating through the array
+    for(let i=0; i<array.length; i++) {
+        if (array[i] < min) {
+            min = array[i];
+        }
+        if (array[i] > max) {
+            max = array[i];
+        }
+    }
+    // now calc our bucket width/ interval
+    const range = max - min;
+    const bucketInterval = range / numberOfBuckets;
+
+    // const create the actual buckets
+    const buckets = new Array(numberOfBuckets).fill(0).map(p => new Array()); //method for creating an array of arrays
+
+    // fill the buckets
+    for (let i=0; i<array.length; i++) {
+        putInBucket(buckets, array[i], bucketInterval, min, max);
+    }
+    let sorted = [];
+    for (let i=0; i<buckets.length; i++) {
+        insertionSort(buckets[i]);
+        buckets[i].forEach(p => sorted.push(p));
+    }
+    return sorted;
+}
+
+const unsortedArray = [100, 111, 200, 167,140, 112, 121, 129, 134,156,167,192];
+const sortedArray = bucketSort(unsortedArray, 5);
+console.log('sortedArray is: ', sortedArray);
