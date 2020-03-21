@@ -14,9 +14,9 @@ Run time of various amortised operations
 
 ** Recall that jump search algorithm and when it was useful for (searching when the end of an array is unkown)
 
-** Need an external sort implementation
+** Need an external sort implementation && Memory based problems and powers of 2 - 10.6, 10.7, 10.8
 
-** Memory based problems and powers of 2
+** 
 
 --------------------------------------------------------------------------------------------------------------------
 
