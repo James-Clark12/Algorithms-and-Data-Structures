@@ -11,6 +11,7 @@ Rotation in string - CTCI - 1.9 - solution is unexpected
 Run time of various amortised operations
 
 ** Need a radix sort implementation
+** Recall that jump search algorithm and when it was useful for
 
 --------------------------------------------------------------------------------------------------------------------
 
