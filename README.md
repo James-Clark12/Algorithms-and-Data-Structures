@@ -16,6 +16,8 @@ Run time of various amortised operations
 
 ** Need an external sort implementation
 
+** Memory based problems and powers of 2
+
 --------------------------------------------------------------------------------------------------------------------
 
 These are the steps I take when approaching algorithmic type problems:
