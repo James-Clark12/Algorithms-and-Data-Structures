@@ -68,7 +68,7 @@ function knuthMorrisPratt(text, word) {
         // now we've record the match lets continue as if we just found a mistmatch
         wordIndex = patternTable[wordIndex - 1];
       }
-      wordIndex += 1;
+      wordIndex += 1; // making these part of an else makes it clearer I think - although may work withouut the else
       textIndex += 1;
     // we didn't find a match but we had built up some matches
     // therefore we can use the information we matched
