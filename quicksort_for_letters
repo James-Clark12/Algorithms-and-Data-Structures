@@ -34,4 +34,19 @@ console.log(quickSort(['z','a','g','k','A','T','Q','T','Q','U']));
 console.log(quickSort(('za;sjbfgabhdgaasdASJFASLFBALSf').split('')));
 
 // doing this is the key: typeof array[right] === "string" ? (`${array[right]}`).codePointAt(0) : array[right];
-// using this can convert any sorting alg into string compatible
+// using this can convert any sorting alg into string compatible - e.g. insertionSort
+
+const getValue = (index, array) => {
+    return typeof array[index] === "string" ? (`${array[index]}`).codePointAt(0) : array[index];
+}
+
+const insertionSort = (array) => {
+    for(let i=0; i<array.length; i++) {
+        let j = i;
+        while(j > 0 && getValue(j-1, array) > getValue(j, array)) {
+            swap(array, j, j-1);
+            j--;
+        }
+    }
+    return array;
+}
