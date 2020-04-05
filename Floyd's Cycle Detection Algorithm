@@ -1,0 +1,111 @@
+Also know as the Tortoise and the Hare algorithm - can be used to detect a cycle and then from there where the cycle starts
+
+The Tortoise and the Hare is possibly the most famous cycle detection algorithm, and is surprisingly straightforward.
+The Tortoise and the Hare are both pointers, and both start at the top of the list. For each iteration, the Tortoise 
+takes one step and the Hare takes two. If there is a loop, the hare will go around that loop (possibly more than once)
+and eventually meet up with the turtle when the turtle gets into the loop. If there is no loop, the hare will get to 
+the end of the list without meeting up with the turtle.
+
+Performance is O(N) = N
+
+STEP 1:  Take 2 pointers ptr1 and ptr2, both pointing at the start node initially.
+                
+STEP 2:  Move ptr1 forward one node at a time and move ptr2 forward two nodes at same time.
+
+STEP 3:  ptr2 is running at double speed, so definitely it will be ahead of ptr1,
+                If ptr2 encounters NULL, it means there is no loop in a Linked list and stop execution.
+                If linked list contains loop, then ptr2 at some point will enter in the loop. some time later
+                ptr1 will also enter in the loop.
+
+STEP 4:  Now, when both pointers are in the loop, and if they continue to move at their respective speeds they will necessarily
+           meet at which point we will know we are in a loop.
+           
+           //So essentially if there is a loop - they will meet in there - i.e. at some point be on the same node
+           // If the hare reaches the end then we know there is no loop
+           
+           
+// create a linked list with a lopp
+
+class LinkedList { 
+    constructor(value) {
+        this.head = null;
+        if(value !== undefined) {
+            this.head = {value, next: null};
+        }
+        this.tail = this.head;
+    //console.log('head is: ', this.head, 'tail is: ', this.tail);
+    }
+    getKthNode = (k) => {
+        let i = k;
+        let node = this.head;
+        while(i > 0) {
+            node = node.next;
+            i--;
+        }
+        return node;
+    }
+    addNodeToTail = (value, nextNode=null) => {
+        this.tail.next = {value, next: nextNode};
+        this.tail = this.tail.next;
+    }
+    printList = () => {
+        let node=this.head;
+        let i = 13;
+        while(node.next!==null && i>0) {
+            console.log('node.value is: ', node.value);
+            node = node.next;
+            i--;
+        }
+    }
+    createLoop = (k) => {
+        let node = this.getKthNode(k);
+        this.addNodeToTail('loop', node);
+    }
+}
+
+const L1 = new LinkedList(1);
+L1.addNodeToTail(2);
+L1.addNodeToTail(3);
+L1.addNodeToTail(4);
+L1.addNodeToTail(5);
+L1.addNodeToTail(6);
+L1.addNodeToTail(7);
+L1.addNodeToTail(8);
+L1.addNodeToTail(9);
+L1.addNodeToTail(10);
+L1.addNodeToTail(11);
+L1.addNodeToTail(12);
+L1.addNodeToTail(13);
+L1.addNodeToTail(14);
+L1.createLoop(7);
+//L1.printList();
+
+const FLD = (head) => {
+    let p1 = 'start';
+    let p2 = head;
+
+    // whilst p2 is not at the end and they have not met
+    while(p2.next !== null && p2.next.next !==null && p1 !== p2) {
+        p2 = p2.next.next;
+        // needed so they don't start on the same node and the while loop runs
+        if (p1 === 'start') {
+            p1 = head;
+        } else {
+            p1 = p1.next;
+        }
+        console.log('p1: ', p1.value, ' p2: ', p2.value);
+    }
+    if (p1 === p2) {
+        console.log('p1: ', p1.value, ' p2: ', p2.value);
+        return 'In a loop';
+    }
+
+    if (p2.next.next === null || p2.next === null) {
+        console.log('p1: ', p1.value, ' p2: ', p2.value);
+        return 'No loop present';
+    }
+    console.log('p1: ', p1.value, ' p2: ', p2.value);
+    return 'Undefined case';
+}
+
+console.log(FLD(L1.head));
