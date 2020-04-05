@@ -50,7 +50,7 @@ class LinkedList {
     }
     printList = () => {
         let node=this.head;
-        let i = 13;
+        let i = 23;
         while(node.next!==null && i>0) {
             console.log('node.value is: ', node.value);
             node = node.next;
@@ -58,8 +58,8 @@ class LinkedList {
         }
     }
     createLoop = (k) => {
-        let node = this.getKthNode(k);
-        this.addNodeToTail('loop', node);
+        let node = this.getKthNode(k-1);
+        this.addNodeToTail(99, node);
     }
 }
 
@@ -69,40 +69,41 @@ L1.addNodeToTail(3);
 L1.addNodeToTail(4);
 L1.addNodeToTail(5);
 L1.addNodeToTail(6);
-L1.addNodeToTail(7);
-L1.addNodeToTail(8);
-L1.addNodeToTail(9);
-L1.addNodeToTail(10);
-L1.addNodeToTail(11);
-L1.addNodeToTail(12);
-L1.addNodeToTail(13);
-L1.addNodeToTail(14);
-L1.createLoop(7);
+L1.createLoop(4);
 //L1.printList();
 
 const FLD = (head) => {
     let p1 = 'start';
     let p2 = head;
-
     // whilst p2 is not at the end and they have not met
     while(p2.next !== null && p2.next.next !==null && p1 !== p2) {
         p2 = p2.next.next;
         // needed so they don't start on the same node and the while loop runs
+        // has to set as head.next - as it should be starting from head really
+        // creates a hard to spot bug
         if (p1 === 'start') {
-            p1 = head;
+            p1 = head.next;
         } else {
             p1 = p1.next;
         }
-        console.log('p1: ', p1.value, ' p2: ', p2.value);
     }
     if (p1 === p2) {
-        console.log('p1: ', p1.value, ' p2: ', p2.value);
-        return 'In a loop';
+        // now a loop has been identified we can find the start of the loop
+        console.log('Met at p1: ', p1.value, ' p2: ', p2.value);
+        console.log('Searching for loop start');
+        p1 = head;
+        while(p1 !== p2) {
+            console.log('p1: ', p1 && p1.value, ' p2: ', p2.value);
+            p1 = p1.next;
+            p2 = p2.next;
+        }
+        console.log('Found start of loop at ', p1.value);
+        return p1.value;
     }
 
     if (p2.next.next === null || p2.next === null) {
         console.log('p1: ', p1.value, ' p2: ', p2.value);
-        return 'No loop present';
+        return 'Reached the end of the LL no loop present';
     }
     console.log('p1: ', p1.value, ' p2: ', p2.value);
     return 'Undefined case';
