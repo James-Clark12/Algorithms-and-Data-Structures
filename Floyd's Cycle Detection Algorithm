@@ -6,6 +6,8 @@ takes one step and the Hare takes two. If there is a loop, the hare will go arou
 and eventually meet up with the turtle when the turtle gets into the loop. If there is no loop, the hare will get to 
 the end of the list without meeting up with the turtle.
 
+Great video on why it works: https://www.youtube.com/watch?v=LUm2ABqAs1w&feature=youtu.be
+
 Performance is O(N) = N
 
 STEP 1:  Take 2 pointers ptr1 and ptr2, both pointing at the start node initially.
