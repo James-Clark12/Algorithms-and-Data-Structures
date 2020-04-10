@@ -1,0 +1,52 @@
+Progress of a DP Problem
+
+const min = (n1, n2) => {
+  if (n1 < n2) return n1;
+  return n2;
+}
+
+/*Solve it recurisvely and memoize*/
+
+// const climb = (currentStep, steps, sum, opt) => {
+//   if (currentStep >= steps.length) {
+//     return sum;
+//   } else {
+//     if (sum < opt[currentStep]) {
+//       // if sum is higher than already recorded here - stop recursive call
+//       opt[currentStep] = sum;
+//     } else {
+//       return Infinity;
+//     }
+//     sum = sum + steps[currentStep];
+//     return min(climb(currentStep+1, steps, sum, opt), climb(currentStep+2, steps, sum, opt));
+//   }
+// }
+
+// var minCostClimbingStairs = function(cost) {
+//   const opt = new Array(cost.length).fill(Infinity);
+//   return min(climb(0, cost, 0, opt), climb(1, cost, 0, opt));
+// };
+
+/*Solve iteratively with tabulation*/
+
+// var minCostClimbingStairs = function(cost) {
+//   const dp = [cost[0], cost[1]];
+//   for(let i=0; i<cost.length-2; i++) {
+//     dp[i+2] = min(dp[i], dp[i+1]) + cost[i+2];
+//   }
+//   return min(dp[dp.length-1], dp[dp.length-2]);
+// };
+
+/* Reduce tabulation to just neccesary variables*/
+
+var minCostClimbingStairs = function(cost) {
+  let currentStep;
+  let oneBeforePreviousStep = cost[0];
+  let previousStep = cost[1];
+  for(let i=0; i<cost.length-2; i++) {
+    currentStep = min(oneBeforePreviousStep, previousStep) + cost[i+2];
+    oneBeforePreviousStep = previousStep;
+    previousStep = currentStep;
+  }
+  return min(oneBeforePreviousStep, previousStep);
+};
