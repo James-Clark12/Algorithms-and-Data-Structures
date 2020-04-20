@@ -1,3 +1,49 @@
+/* Preamble on what trees are:
+
+  -Trees are a type of graph
+  
+  -A tree is a data structure composed  of node
+  - All trees have a roote node
+  - the root node has 0 or N children (N is 2 in the case of binary trees)
+  - all those children have 0 or N children
+  
+  -Trees do not contain cycles
+  
+  -Node can both have or not have links back to their parents
+  
+  -Trees can be implemented in a number of ways (my preference is array as easy to navigate)
+  
+  -Binary search trees are binary trees where every node fits a specific ordering property, namely:
+  all left descendents <= n < all right descendents 
+  (not really mean descendents not children here - as rule includes children of children)
+  
+  -balanced trees are trees which are not unbalanced - that is to say trees where the left branch is 
+  not greatly longer than the right branch or vice versa (they're not necessarily perfectly balances)
+  
+  -Complete binary tree - binary tree in which every level of the tree other than the last is filled (the last can also be filled
+  making it a perfect binary tree)
+  
+  -Full binary tree - each node has either two or no children
+  
+  -Perfect binary tree - tree that is both full and complete
+
+*/
+
+
+/* 
+
+  Traversing trees:
+  
+  There are three common traversal orders:
+  
+  1. In-Order traversal
+    On a BST tree it visits the nodes in ascending order
+    
+  2. Pre-order traversal
+    -Visits the current node, then its left child, then its right
+
+  3. Post-order traversal
+    -Visits current node after having visited its children
 
 const Parent = (i) => {
   return Math.ceil(i/2 - 1)
