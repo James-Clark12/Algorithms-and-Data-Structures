@@ -109,31 +109,44 @@ const PrintTree = (treeArray) => {
 }
 
 const InsertElement = (array, element) => {
-  let i = 0;
-  if (array[0] === undefined) {
-    array[0] = element;
-    return;
-  }
-  while (i < array.length) {
-    console.log('i is: ', i, ' array[i] is: ', array[i], ' element is: ', element);
-    if (array[i] === undefined) {
-      break;
-    } else if (array[i] >= element) {
-      console.log('array item is greater than element');
-      i = Left(i);
-    } else if (element > array[i]) {
-      console.log('array item is less than element');
-      i = Right(i);
-    };
-    console.log('how here?');
-  }
-  i = Parent(i);
-  if (array[i] >= element) {
-    array[Left(i)] = element;
-  } else {
-    array[Right(i)] = element;
-  }
-}
+    let i = 0;
+    while(array[i] !== undefined) {
+        if (element <= array[i]) {
+            i = Left(i);
+        } else if (element > array[i]) {
+            i = Right(i);
+        }
+    }
+    array[i] = element;
+    return i;
+};
+
+// const InsertElement = (array, element) => {
+//   let i = 0;
+//   if (array[0] === undefined) {
+//     array[0] = element;
+//     return;
+//   }
+//   while (i < array.length) {
+//     console.log('i is: ', i, ' array[i] is: ', array[i], ' element is: ', element);
+//     if (array[i] === undefined) {
+//       break;
+//     } else if (array[i] >= element) {
+//       console.log('array item is greater than element');
+//       i = Left(i);
+//     } else if (element > array[i]) {
+//       console.log('array item is less than element');
+//       i = Right(i);
+//     };
+//     console.log('how here?');
+//   }
+//   i = Parent(i);
+//   if (array[i] >= element) {
+//     array[Left(i)] = element;
+//   } else {
+//     array[Right(i)] = element;
+//   }
+// }
 
 /* Deleting an element is the most complex BST operation
 There are three cases to consider:
