@@ -16,7 +16,12 @@ Run time of various amortised operations
 
 ** Need an external sort implementation && Memory based problems and powers of 2 - 10.6, 10.7, 10.8
 
-** 
+** Day–Stout–Warren algorithm (hot to balance a binary search tree) - should know more about AVL and RB trees too
+
+**Look for sets of BST problems - very few on leetcode
+
+**Need a node based implementation of BST in order to do a lot of the rotation problems
+
 
 --------------------------------------------------------------------------------------------------------------------
 
