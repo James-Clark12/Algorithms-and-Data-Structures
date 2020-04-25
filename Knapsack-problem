@@ -1,0 +1,40 @@
+
+// best explanation is here:
+// https://medium.com/@fabianterh/how-to-solve-the-knapsack-problem-with-dynamic-programming-eb88c706d3cf
+
+const knapSackProblem = (capcity, items) => {
+    const dp = new Array(items.length+1).fill(0).map(p => new Array(capcity+1).fill(0));
+    for(let row=1; row<=items.length; row++) {
+        for(let column=1; column<=capcity; column++) {
+            let withoutItem = dp[row-1][column];
+            let withItem = 0;
+
+            let itemWeight = items[row-1]['weight'];
+            let itemValue = items[row-1]['value'];
+            // if we have the capacity for the item
+            if ((column - itemWeight) >= 0) {
+                // the max value for using the item is the max of not using it
+                // or its value, and the max value we can get from the remaining capacity
+                withItem = Math.max(
+                    withoutItem,
+                    itemValue + dp[row-1][column - itemWeight]
+                );
+            }
+            dp[row][column] = Math.max(withItem, withoutItem);
+        }
+    }
+    //console.log(dp);
+    return (dp[dp.length-1][dp[0].length-1]);
+}
+
+console.log(
+    knapSackProblem(
+        6,
+        [
+            {value: 10, weight: 2},
+            {value: 11, weight: 3},
+            {value: 4, weight: 1},
+            {value: 6, weight: 2},
+        ]
+    )
+)
