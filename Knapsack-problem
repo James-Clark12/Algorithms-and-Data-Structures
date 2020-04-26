@@ -2,39 +2,101 @@
 // best explanation is here:
 // https://medium.com/@fabianterh/how-to-solve-the-knapsack-problem-with-dynamic-programming-eb88c706d3cf
 
-const knapSackProblem = (capcity, items) => {
-    const dp = new Array(items.length+1).fill(0).map(p => new Array(capcity+1).fill(0));
-    for(let row=1; row<=items.length; row++) {
-        for(let column=1; column<=capcity; column++) {
-            let withoutItem = dp[row-1][column];
-            let withItem = 0;
 
-            let itemWeight = items[row-1]['weight'];
-            let itemValue = items[row-1]['value'];
-            // if we have the capacity for the item
-            if ((column - itemWeight) >= 0) {
-                // the max value for using the item is the max of not using it
-                // or its value, and the max value we can get from the remaining capacity
-                withItem = Math.max(
-                    withoutItem,
-                    itemValue + dp[row-1][column - itemWeight]
-                );
-            }
-            dp[row][column] = Math.max(withItem, withoutItem);
+// for top down solution - https://www.geeksforgeeks.org/0-1-knapsack-problem-dp-10/
+
+// actually fairly simple - no different to the tickets problem or any other of the
+// maximising problems - other than it is best solved with a matrix rather than
+// a one dimensional array
+
+// const knapSackProblem = (capcity, items) => {
+//     const dp = new Array(items.length+1).fill(0).map(p => new Array(capcity+1).fill(0));
+//     for(let row=1; row<=items.length; row++) {
+//         for(let column=1; column<=capcity; column++) {
+//             let withoutItem = dp[row-1][column];
+//             let withItem = 0;
+
+//             let itemWeight = items[row-1]['weight'];
+//             let itemValue = items[row-1]['value'];
+//             // if we have the capacity for the item
+//             if ((column - itemWeight) >= 0) {
+//                 // the max value for using the item is the max of not using it
+//                 // or its value, and the max value we can get from the remaining capacity
+//                 withItem = Math.max(
+//                     withoutItem,
+//                     itemValue + dp[row-1][column - itemWeight]
+//                 );
+//             }
+//             dp[row][column] = Math.max(withItem, withoutItem);
+//         }
+//     }
+//     //console.log(dp);
+//     return (dp[dp.length-1][dp[0].length-1]);
+// }
+
+// const knapSackProblem = (capacity, items) => {
+
+//     const bestFit = (capacityLeft, itemNo) => {
+//         if (capacityLeft === 0 || itemNo === items.length) {
+//             // base case - we've used all our capacity or used all the items
+//             return 0;
+//         } else if ((capacityLeft - items[itemNo]['weight']) < 0) {
+//             // cant use the item as don't have the capacity
+//             return bestFit(capacityLeft, itemNo+1);
+//         } else {
+//             return Math.max(
+//                 // use the item
+//                 bestFit(capacityLeft - items[itemNo]['weight'], itemNo+1) + items[itemNo]['value'],
+//                 // don't use the item
+//                 bestFit(capacityLeft, itemNo+1)
+//             )
+//         }
+//     }
+//     return bestFit(capacity, 0);
+// }
+
+// what are the moving states that allow us to memoize
+// they are the variables we are passing into the recursive func
+// which item we have reached and our capcity left
+// what our memoize stores is:
+// from this item, with this capacity left - the optimum result that
+// can be attained is...
+
+const knapSackProblem = (capacity, items) => {
+    const mem = new Array(items.length).fill(0).map(p => new Array(capacity+1).fill(-1));
+    const bestFit = (capacityLeft, itemNo) => {
+        if (capacityLeft === 0 || itemNo === items.length) {
+            // base case - we've used all our capacity or used all the items
+            return 0;
+        }
+        //check if have memod result
+        if (mem[itemNo][capacityLeft] !== -1) {
+            return mem[itemNo][capacityLeft];
+        } else if ((capacityLeft - items[itemNo]['weight']) < 0) {
+            // cant use the item as don't have the capacity
+            mem[itemNo][capacityLeft] = bestFit(capacityLeft, itemNo+1);
+            return mem[itemNo][capacityLeft];
+        } else {
+            mem[itemNo][capacityLeft] = Math.max(
+                // use the item
+                bestFit(capacityLeft - items[itemNo]['weight'], itemNo+1) + items[itemNo]['value'],
+                // don't use the item
+                bestFit(capacityLeft, itemNo+1)
+            );
+            return mem[itemNo][capacityLeft];
         }
     }
-    //console.log(dp);
-    return (dp[dp.length-1][dp[0].length-1]);
+    return bestFit(capacity, 0);
 }
+
 
 console.log(
     knapSackProblem(
-        6,
+        50,
         [
-            {value: 10, weight: 2},
-            {value: 11, weight: 3},
-            {value: 4, weight: 1},
-            {value: 6, weight: 2},
+            {value: 60, weight: 10},
+            {value: 100, weight: 20},
+            {value: 120, weight: 30},
         ]
     )
 )
