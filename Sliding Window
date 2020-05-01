@@ -1,0 +1,35 @@
+This is the best article on how to use the sliding window method:
+
+https://medium.com/@timpark0807/leetcode-is-easy-sliding-window-c44c11cc33e1
+
+var findMaxConsecutiveOnes = function(nums) {
+   
+    // define pointers
+    let left = 0;
+    let right = 0;
+
+    // vars
+    let numOfZeros = 0;
+    let longest = 0;
+
+    while(right < nums.length) {
+        if (nums[right] === 0) {
+            numOfZeros++;
+        }
+        while(numOfZeros === 2) {
+            longest = Math.max(longest, right-left);
+            if (nums[left] === 0) {
+                numOfZeros--;
+            }
+            left++;
+        }
+        right++;
+    }
+    // when we hit the end of the sequence we need to do a final measure
+    // (this is the only measure if there are never more than 1 zeros)
+    if (numOfZeros < 2) {
+        longest = Math.max(longest, right-left);
+    }
+
+    return longest;
+};
