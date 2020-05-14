@@ -1,0 +1,15 @@
+Dynamic Programming - Types of problem
+
+1.  Finding the Min/ Max path to a target
+
+Classic examples
+
+-climbing stairs - https://leetcode.com/problems/min-cost-climbing-stairs/
+-coin change - https://leetcode.com/problems/coin-change/
+-minimum cost of tickets - https://leetcode.com/problems/minimum-cost-for-tickets/
+
+One of the simpler set of problems imo.
+
+User top-down and memoization to find the max/ min route. This should define the relation
+that can be used in tabulation. dp[i] will be the max/ min of some previous i's 
+depending on the recurrence relation defined.
