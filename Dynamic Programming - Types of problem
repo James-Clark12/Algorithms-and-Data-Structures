@@ -10,6 +10,28 @@ Classic examples
 
 One of the simpler set of problems imo.
 
-User top-down and memoization to find the max/ min route. This should define the relation
+Use top-down and memoization to find the max/ min route. This should define the relation
 that can be used in tabulation. dp[i] will be the max/ min of some previous i's 
 depending on the recurrence relation defined.
+
+
+2. Finding the number of unique paths to something
+
+Classic examples
+
+-climing stairs - no. of ways - https://leetcode.com/problems/climbing-stairs/
+-unique paths - https://leetcode.com/problems/unique-paths/
+-Combination sum - https://leetcode.com/problems/combination-sum-iv/
+
+Very similar to finding the max/ min path to a target - except you summ the number
+of routes that make it to the target.
+
+3. Longest Increasing Subsequence
+
+This might not initially seem like a DP problem but it is. The reason being that for some i in the
+array - the length of the increasing subsequence to it - is the largest LIS up to any element
+before it that is smaller than it.
+
+i.e. the relation is:
+
+LIS[i] = Math.max(1, LIS[j]) <-- where j is an index before i, and LIS[j] is an element smaller than LIS[i]
