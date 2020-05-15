@@ -35,3 +35,8 @@ before it that is smaller than it.
 i.e. the relation is:
 
 LIS[i] = Math.max(1, LIS[j]) <-- where j is an index before i, and LIS[j] is an element smaller than LIS[i]
+
+Classic examples
+
+Longest Increasing Subsequence - https://leetcode.com/problems/longest-increasing-subsequence/
+Maximum Length of Pair Chain - (LIS with a twist) - https://leetcode.com/problems/maximum-length-of-pair-chain/ 
