@@ -26,7 +26,7 @@ Classic examples
 Very similar to finding the max/ min path to a target - except you summ the number
 of routes that make it to the target.
 
-3. Longest Increasing Subsequence
+3. Longest Increasing Subsequence ** these are challenging - need more practice
 
 This might not initially seem like a DP problem but it is. The reason being that for some i in the
 array - the length of the increasing subsequence to it - is the largest LIS up to any element
@@ -40,3 +40,4 @@ Classic examples
 
 Longest Increasing Subsequence - https://leetcode.com/problems/longest-increasing-subsequence/
 Maximum Length of Pair Chain - (LIS with a twist) - https://leetcode.com/problems/maximum-length-of-pair-chain/ 
+Number of Longest Increasing Subsequence - https://leetcode.com/problems/number-of-longest-increasing-subsequence/
