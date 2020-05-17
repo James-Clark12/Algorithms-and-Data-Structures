@@ -1,3 +1,23 @@
+Dynamic Programming - The Nature of the Problems
+
+-Whenever solving a DP problem is challenging go back to basics. What are the properties that make a problem solvable by DP?
+
+1) Overlapping Subproblems - solutions of same subproblems are needed again and again - and thus we can save time by storing them via tabulation or memoization
+2) Optimal Substructure  - A given problems has Optimal Substructure Property if optimal solution of the given problem can be obtained by using optimal solutions of its subproblems.
+
+Once a problem has been identified as DP the first thing we need to do in order to solve it is work outs its state.
+
+A state can be defined as the set of parameters that can uniquely identify a certain position or standing in the given problem.
+i.e. in the climbing stairs problem this is what step we are on.
+
+Once we have defined the state - we do the bulk of the work of solving the problem by working out the relation between previous states to reach the current state.
+This is the recurrence relation - it takes advantage of properties 1 and 2 of DP problems and is the answer to the question:
+How can the answer to one problem be given by answer to sub-problems.
+e.g. for the number of ways to climb some steps taking either 1 or 2 steps each time - dp[i] is simply dp[i-1] + dp[i-2]
+
+Once we have solved the subproblem relation - tabulation and memoization is easy - we just store the the answers to subproblems using their state to define them
+and use those answers to solve the larger problems.
+
 Dynamic Programming - Types of problem
 
 1.  Finding the Min/ Max path to a target
