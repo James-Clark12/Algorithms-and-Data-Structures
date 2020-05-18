@@ -75,6 +75,7 @@ Longest Substring with At Most Two Distinct Characters - https://leetcode.com/pr
 Longest Substring Without Repeating Characters - https://leetcode.com/problems/longest-substring-without-repeating-characters/
 Minimum Window Substring - https://leetcode.com/problems/minimum-window-substring/
 Subarray Product Less Than K - https://leetcode.com/problems/subarray-product-less-than-k/ **Challenging problem
+
 5. Maximum SubArray Sum - Kadane's algorithm
 
 Just a single type of problem that can be solved very easily using DP. Not sure why it has it's own name as it is just DP.
@@ -93,4 +94,14 @@ Examples
 
 Maximum Subarray - https://leetcode.com/problems/maximum-subarray/
 Maximum Product Subarray - https://leetcode.com/problems/maximum-product-subarray/
+
+6. Knapsack problems
+
+These are in someways similar to type 1 problems in that you are trying to maximise something - but differ in that
+....
+
+So far I have found these hard. Solving them from a top-down perspective is doable - solving them from bottom-up is
+very challenging although maybe I just don't have the intuition yet.
+
+Classic knapsack problem - https://www.geeksforgeeks.org/0-1-knapsack-problem-dp-10/
 
