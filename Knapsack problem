@@ -1,0 +1,56 @@
+
+/*
+
+https://www.geeksforgeeks.org/0-1-knapsack-problem-dp-10/
+
+Given weights and values of n items, put these items in a knapsack of capacity W to get the maximum total
+value in the knapsack. In other words, given two integer arrays val[0..n-1] and wt[0..n-1] which represent
+values and weights associated with n items respectively. Also given an integer W which represents knapsack
+capacity, find out the maximum value subset of val[] such that sum of the weights of this subset is smaller
+than or equal to W. You cannot break an item, either pick the complete item, or don’t pick it (0-1 property).
+
+You can only use each item once
+*/
+
+/*
+To memoize this we just need to use the two things that represent state weight used and item index
+in a 2D array.
+
+dp[weightUsed][itemIndex] = will tell use the max value that can be got with the remaining weight
+
+*/
+
+const knapSackProblem = (weight, itemsWeights, itemsValues) => {
+
+    const optimise = (weightUsed, itemIndex) => {
+
+        // base cases
+        // 1. reached max weight
+        // 2. exceed weight allowed so invalid
+        // 3. used all items
+        if (weightUsed === weight) {
+            return 0;
+        } else if (weightUsed > weight) {
+            return -Infinity;
+        } else if (itemIndex === itemsWeights.length) {
+            return 0;
+        } else {
+            // two options - use an item or dont use it
+            return Math.max(
+                // use the item
+                optimise(weightUsed + itemsWeights[itemIndex], itemIndex++) + itemsValues[itemIndex],
+                // dont use the item
+                optimise(weightUsed, itemIndex++)
+            )
+        }
+    }
+    return optimise(0,0);
+}
+
+console.log(
+    knapSackProblem(
+        10,
+        [3,4,4],
+        [3,4,5]
+    )
+)
