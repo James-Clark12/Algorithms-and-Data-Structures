@@ -54,3 +54,55 @@ console.log(
         [3,4,5]
     )
 )
+
+
+/* Tabulation answer - Does make sense and is a 2D pattern we should get comfortable with */
+
+const knapSackProblem = (weight, itemsWeights, itemsValues) => {
+
+    
+    // columns are weights from 0 to desired weight
+    // rows are 0 (no items) to items.length - 1 index array of the items
+
+    // dp[r][c] = is the maximum value it is possible to get using the weight C and all the items in the array up to R
+    
+    // for a given dp[r][c] its value is = the max that can be obtained by using that weight or not using that weight
+    // in terms of the table we can define this as:
+    // ** - assuming the weight isnt greater than the capcity you have
+    // dp[r][c] = Math.max(
+        // obtain max using weight r
+            // value is the value of the weight plus the max value we can get with the remaining weight
+            //value + dp[r-1][Math.max(0,c-weight)] **note since we need 0 values to build are tables
+            // the weight array is 1 indexed so weight will be weights[r-1] and value will be values[r-1]
+        // max value without using weight r
+            //dp[r-1][c]
+        //)
+    // ** - if the weight is greater than the capcity you have then the max you can obtain with dp[r][c] is:
+    // dr[r-1][c]
+
+    // in code this will look like:
+    /*
+
+    for (i = 0; i <= n; i++) 
+    { 
+        for (w = 0; w <= W; w++) 
+        { 
+            if (i==0 || w==0) 
+                K[i][w] = 0; 
+            else if (wt[i-1] <= w) 
+                    K[i][w] = max(val[i-1] + K[i-1][w-wt[i-1]],  K[i-1][w]); 
+            else
+                    K[i][w] = K[i-1][w]; 
+        } 
+    } 
+
+    */
+}
+
+console.log(
+    knapSackProblem(
+        10,
+        [3,4,4],
+        [3,4,5]
+    )
+)
