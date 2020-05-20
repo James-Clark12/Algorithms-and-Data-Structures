@@ -100,10 +100,9 @@ Maximum Product Subarray - https://leetcode.com/problems/maximum-product-subarra
 These are in someways similar to type 1 problems in that you are trying to maximise something - but differ in that
 you can only use each of the options you have a limited number of times.
 
-....
-
-So far I have found these hard. Solving them from a top-down perspective is doable - solving them from bottom-up is
-very challenging although maybe I just don't have the intuition yet.
+These initially seem very challenging but they are intuitive and are just like the train ticket problem except you
+need to work in two dimensions - 0 to amount, and from option 0 to option N (i.e. the items you can put in your bag,
+or the coins you can choose).
 
 Classic knapsack problem - https://www.geeksforgeeks.org/0-1-knapsack-problem-dp-10/
 
