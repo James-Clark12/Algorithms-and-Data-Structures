@@ -20,41 +20,40 @@ dp[weightUsed][itemIndex] = will tell use the max value that can be got with the
 
 */
 
-const knapSackProblem = (weight, itemsWeights, itemsValues) => {
+const knapSackProblem = (volume, weight, values) => {
 
-    const optimise = (weightUsed, itemIndex) => {
-
+    const optimize = (volumeUsed, itemIndex) => {
         // base cases
-        // 1. reached max weight
-        // 2. exceed weight allowed so invalid
+        // 1. filled the sack
+        // 2. overfilled the sack
         // 3. used all items
-        if (weightUsed === weight) {
+        console.log('volumeUsed: ', volumeUsed, ' itemIndex: ', itemIndex);
+        if (volumeUsed === volume) {
             return 0;
-        } else if (weightUsed > weight) {
+        } else if (volumeUsed > volume) {
             return -Infinity;
-        } else if (itemIndex === itemsWeights.length) {
+        } else if (itemIndex === weight.length) {
             return 0;
         } else {
-            // two options - use an item or dont use it
+            // two options - use item or dont use item
             return Math.max(
-                // use the item
-                optimise(weightUsed + itemsWeights[itemIndex], itemIndex++) + itemsValues[itemIndex],
-                // dont use the item
-                optimise(weightUsed, itemIndex++)
+                // use item
+                optimize(volumeUsed + weight[itemIndex], itemIndex+1) + values[itemIndex],
+                // dont use item
+                optimize(volumeUsed, itemIndex+1)
             )
         }
     }
-    return optimise(0,0);
+    return optimize(0, 0);
 }
 
 console.log(
     knapSackProblem(
         10,
-        [3,4,4],
-        [3,4,5]
+        [3,4,4,2,1],
+        [3,4,5,10,4]
     )
 )
-
 
 /* Tabulation answer - Does make sense and is a 2D pattern we should get comfortable with */
 
