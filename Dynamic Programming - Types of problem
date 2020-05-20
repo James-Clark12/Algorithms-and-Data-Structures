@@ -98,6 +98,8 @@ Maximum Product Subarray - https://leetcode.com/problems/maximum-product-subarra
 6. Knapsack problems
 
 These are in someways similar to type 1 problems in that you are trying to maximise something - but differ in that
+you can only use each of the options you have a limited number of times.
+
 ....
 
 So far I have found these hard. Solving them from a top-down perspective is doable - solving them from bottom-up is
