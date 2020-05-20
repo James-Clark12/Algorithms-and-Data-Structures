@@ -58,7 +58,8 @@ console.log(
     )
 )
 
-/* Tabulation answer - Does make sense and is a 2D pattern we should get comfortable with */
+/* Tabulation answer - Does make sense and is a 2D pattern we should get comfortable with - its just like the 
+train ticket problem but in two dimension */
 
 const knapSackProblem = (weight, itemsWeights, itemsValues) => {
 
