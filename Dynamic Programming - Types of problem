@@ -107,3 +107,5 @@ very challenging although maybe I just don't have the intuition yet.
 
 Classic knapsack problem - https://www.geeksforgeeks.org/0-1-knapsack-problem-dp-10/
 
+Q518 Coin Change 2 - https://leetcode.com/problems/coin-change-2/ (like a knapsack problem but counting unique ways)
+
