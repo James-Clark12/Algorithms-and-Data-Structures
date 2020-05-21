@@ -107,4 +107,4 @@ or the coins you can choose).
 Classic knapsack problem - https://www.geeksforgeeks.org/0-1-knapsack-problem-dp-10/
 
 Q518 Coin Change 2 - https://leetcode.com/problems/coin-change-2/ (like a knapsack problem but counting unique ways)
-
+Q343 Integer Break - https://leetcode.com/problems/integer-break/
