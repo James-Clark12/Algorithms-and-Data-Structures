@@ -114,3 +114,15 @@ Q343 Integer Break - https://leetcode.com/problems/integer-break/
 494. Target Sum - https://leetcode.com/problems/target-sum/
 416. Partition Equal Subset Sum - https://leetcode.com/problems/partition-equal-subset-sum/
 1049. Last Stone Weight II - https://leetcode.com/problems/last-stone-weight-ii/
+
+7. Merging Intervals
+
+Havn't really touched this topic as the questions are sparse and mainly use tree structures which I want to do separately
+first. This is a set of questions I need to come back to.
+
+8. DP on Strings
+
+You are generally given smallish string and need to provide an answer that can work in N^2
+
+
+
