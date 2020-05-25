@@ -108,3 +108,8 @@ Classic knapsack problem - https://www.geeksforgeeks.org/0-1-knapsack-problem-dp
 
 Q518 Coin Change 2 - https://leetcode.com/problems/coin-change-2/ (like a knapsack problem but counting unique ways)
 Q343 Integer Break - https://leetcode.com/problems/integer-break/
+
+*** Knapsack problems often come in the guise of two sets that need to be equalled - these are just knapsack problems with a twist
+
+494. Target Sum - https://leetcode.com/problems/target-sum/
+416. Partition Equal Subset Sum - https://leetcode.com/problems/partition-equal-subset-sum/
