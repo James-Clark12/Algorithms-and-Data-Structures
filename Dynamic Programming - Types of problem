@@ -120,7 +120,7 @@ Q343 Integer Break - https://leetcode.com/problems/integer-break/
 Havn't really touched this topic as the questions are sparse and mainly use tree structures which I want to do separately
 first. This is a set of questions I need to come back to.
 
-8. DP on Strings
+8. DP on Strings (this includes classic problems like LCS)
 
 You are generally given smallish string and need to provide an answer that can work in N^2
 
