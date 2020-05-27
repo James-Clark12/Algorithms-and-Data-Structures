@@ -111,9 +111,9 @@ Q343 Integer Break - https://leetcode.com/problems/integer-break/
 
 *** Knapsack problems often come in the guise of two sets that need to be equalled - these are just knapsack problems with a twist
 
-494. Target Sum - https://leetcode.com/problems/target-sum/
-416. Partition Equal Subset Sum - https://leetcode.com/problems/partition-equal-subset-sum/
-1049. Last Stone Weight II - https://leetcode.com/problems/last-stone-weight-ii/
+Q494. Target Sum - https://leetcode.com/problems/target-sum/
+Q416. Partition Equal Subset Sum - https://leetcode.com/problems/partition-equal-subset-sum/
+Q1049. Last Stone Weight II - https://leetcode.com/problems/last-stone-weight-ii/
 
 7. Merging Intervals
 
@@ -137,3 +137,4 @@ A common question is on the LCS (Longest Common Subsequence) - to count Common S
       );
   }
 
+Q1143. Longest Common Subsequence - https://leetcode.com/problems/longest-common-subsequence/submissions/
