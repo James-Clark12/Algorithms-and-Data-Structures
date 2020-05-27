@@ -124,5 +124,16 @@ first. This is a set of questions I need to come back to.
 
 You are generally given smallish string and need to provide an answer that can work in N^2
 
+A common question is on the LCS (Longest Common Subsequence) - to count Common Subsequences simply:
 
+  // work through the texts like the following:
+
+  if (text1[t1] === text2[t2]) {
+      return find(t1-1, t2-1) + 1;
+  } else {
+      return Math.max(
+          find(t1-1, t2),
+          find(t1, t2-1)
+      );
+  }
 
