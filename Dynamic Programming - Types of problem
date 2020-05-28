@@ -140,4 +140,19 @@ A common question is on the LCS (Longest Common Subsequence) - to count Common S
 Q1143. Longest Common Subsequence - https://leetcode.com/problems/longest-common-subsequence/submissions/
 Q647. Palindromic Substrings - https://leetcode.com/problems/palindromic-substrings/ (solve a way to test for palindromes efficiently using dp)
 
-
+Q516. Longest Palindromic Subsequence - https://leetcode.com/problems/longest-palindromic-subsequence/
+ // looking through a string for palindrome subsequences uses a similar method
+ 
+   const recurse = (left, right) => {
+      if (left > right) {
+          return 0;
+      } else if (left === right) {
+          return 1;
+      } else {
+          if (s[left] === s[right]) {
+              return recurse(left+1, right-1) + 2; //one match === 2 length
+          } else {
+              return Math.max(recurse(left+1, right), recurse(left, right-1));
+          }
+      }
+  }
