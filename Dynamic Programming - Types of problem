@@ -138,3 +138,6 @@ A common question is on the LCS (Longest Common Subsequence) - to count Common S
   }
 
 Q1143. Longest Common Subsequence - https://leetcode.com/problems/longest-common-subsequence/submissions/
+Q647. Palindromic Substrings - https://leetcode.com/problems/palindromic-substrings/ (solve a way to test for palindromes efficiently using dp)
+
+
