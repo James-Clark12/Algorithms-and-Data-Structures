@@ -138,8 +138,9 @@ A common question is on the LCS (Longest Common Subsequence) - to count Common S
   }
 
 Q1143. Longest Common Subsequence - https://leetcode.com/problems/longest-common-subsequence/submissions/
-Q647. Palindromic Substrings - https://leetcode.com/problems/palindromic-substrings/ (solve a way to test for palindromes efficiently using dp)
+Q712. Minimum ASCII Delete Sum for Two Strings - https://leetcode.com/problems/minimum-ascii-delete-sum-for-two-strings/
 
+Q647. Palindromic Substrings - https://leetcode.com/problems/palindromic-substrings/ (solve a way to test for palindromes efficiently using dp)
 Q516. Longest Palindromic Subsequence - https://leetcode.com/problems/longest-palindromic-subsequence/
  // looking through a string for palindrome subsequences uses a similar method
  
