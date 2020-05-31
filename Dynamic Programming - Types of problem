@@ -157,3 +157,11 @@ Q516. Longest Palindromic Subsequence - https://leetcode.com/problems/longest-pa
           }
       }
   }
+
+9. Decision Making
+
+-general situation is in a given situation decide whether to use or not to use the current state.
+-So, the problem requires you to make a decision at a current state in order to maximise some goal
+
+
+
