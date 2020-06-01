@@ -135,6 +135,13 @@ class BinarySearchTree {
     }
 
     // Performs inorder traversal of a tree 
+    
+    // these traversal methods all move along the tree in the same order
+    // the difference is at what point in their recursiion stack they print the node value
+    // inOrder prints after having vistited all the left children of a node
+    // preOrder prints before visiting a nodes children
+    // postOrder prints after having visited all a node's children
+    
     inorder(node)  { 
         if(node !== null) 
         { 
