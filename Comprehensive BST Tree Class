@@ -1,0 +1,282 @@
+
+class Node {
+    constructor(data) { 
+        this.value = data; 
+        this.left = null; 
+        this.right = null; 
+    } 
+}
+
+class BinarySearchTree {
+    constructor() {
+        this.root = null;
+    }
+
+    insert = (value) => {
+        if (this.root === null) {
+            this.root = new Node(value);
+        } else {
+            this.insertNode(this.root, new Node(value));
+        }
+    }
+
+    insertNode = (node, newNode) => {
+        if (node.value < newNode.value) {
+            if (node.right === null) {
+                node.right = newNode;
+            } else {
+                this.insertNode(node.right, newNode);
+            }
+        } else {
+            if (node.left === null) {
+                node.left = newNode;
+            } else {
+                this.insertNode(node.left, newNode);
+            }
+        }
+    }
+
+    iterativeInsert = (value) => {
+        if (this.root === null) {
+            this.root = new Node(value);
+        } else {
+            let node = this.root;
+            while(node !== null) {
+                if (value > node.value) {
+                    if (node.left === null) {
+                        node.left = new Node(value);
+                        return;
+                    } else {
+                        node = node.left;
+                    }
+                } else {
+                    if (node.right === null) {
+                        node.right = new Node(value);
+                        return;
+                    } else {
+                        node = node.right;
+                    }
+                }
+            }
+        }
+    }
+
+    delete = (val) => {
+        return this.deleteNode(root, val);
+    }
+
+    deleteNode = (node, valToBeDeleted) => {
+        // node may not exist
+        if (node === null) return null;
+        // else if we find it
+        if (node.value === valToBeDeleted) {
+            // three cases
+            // 1. has no children
+            if (node.left === null && node.right === null) {
+                node = null;
+                return null;
+            //2. there is one child
+            } else if (node.left === null) {
+                node = node.left;
+                return node;
+            //2. there is one child
+            } else if (node.right === null) {
+                node = node.right;
+                return node;
+            //3. there are two children
+            } else {
+                // get the smallest right hand node, set that as node val, then call delete on the node
+                // that was copied
+                let successor = node.right;
+                while(successor.left !== null) {
+                    successor = successor.left;
+                }
+                node.val = successor.val;
+                this.deleteNode(successor, successor.val);
+                return node;
+            }
+        }
+    }
+
+    findMin = () => {
+        let node = this.root;
+        while(node.left !== null) {
+            node = node.left;
+        }
+        return node;
+    }
+
+    findMax = () => {
+        let node = this.root;
+        while(node.right !== null) {
+            node = node.right;
+        }
+        return node;
+    }
+
+    find = (val) => {
+        return this.findNode(this.root, val);
+    }
+
+    findNode = (node, desiredVal) => {
+        if (node === null) return null;
+
+        if (node.value === desiredVal) {
+            return node;
+        } else if (node.value < desiredVal) {
+            if (node.right === null) {
+                return null;
+            } else {
+                return this.findNode(node.right, desiredVal);
+            }
+        } else {
+            if (node.left === null) {
+                return null;
+            } else {
+                return this.findNode(node.left, desiredVal);
+            }
+        }
+    }
+
+    inOrder = (node) => {
+        if (node !== null) {
+            this.inOrder(node.left);
+            console.log(node.value);
+            this.inOrder(node.right);
+        }
+    }
+
+    preOrder = (node) => {
+        if (node !== null) {
+            console.log(node.value);
+            this.preOrder(node.left);
+            this.preOrder(node.right);
+        }
+    }
+
+    postOrder = (node) => {
+        if (node !== null) {
+            this.postOrder(node.left);
+            this.postOrder(node.right);
+            console.log(node.value);
+        }
+    }
+
+    getRootNode = () => {
+        return this.root;
+    }
+
+    stackPrintInOrder = (root) => {
+        const stack = [];
+        let pointer = root;
+        while(pointer !== null || stack.length > 0) {
+    
+            while(pointer !== null) {
+                stack.push(pointer);
+                pointer = pointer.left;
+            }
+    
+            pointer = stack.pop();
+            console.log(pointer.value);
+            pointer = pointer.right;
+    
+        }
+    }
+
+    stackPrintPreOrder = (root) => {
+        const stack = [];
+        let pointer = root;
+        while(pointer !== null || stack.length > 0) {
+    
+            while(pointer !== null) {
+                console.log(pointer.value);    
+                stack.push(pointer);
+                pointer = pointer.left;
+            }
+            pointer = stack.pop();
+            pointer = pointer.right;
+    
+        }
+    }
+
+    stackPrintPostOrder = (root) => {
+        // not sure how to do this
+        console.log(root.value);
+    }
+
+    // esenntially a queue based BFS
+    printLevelsUsingQueue = (root) => {
+        if(root === null) console.log('Root is null');
+        let queue = [];
+        queue.push(root);
+        while(queue.length > 0) {
+            let counter = queue.length;
+            while(counter > 0) {
+                let node = queue.shift();
+                console.log(node.value);
+                if (node.left !== null) {
+                    queue.push(node.left);
+                }
+                if (node.right !== null) {
+                    queue.push(node.right);
+                }
+                counter = counter - 1;
+            }
+            console.log("\n");
+        }
+    }
+
+    getTreeHeight = (node) => {
+        if (node === null) return 0;
+
+        return Math.max(
+            this.getTreeHeight(node.left) + 1,
+            this.getTreeHeight(node.right) + 1
+        );
+    }
+
+    // recursive like printing BFS
+    printLevels = (root) => {
+        let height = this.getTreeHeight(root);
+        for(let i=1; i<height+1; i++) {
+            this.printLevel(root, i);
+            console.log("\n")
+        }
+    }
+
+    printLevel = (node, level) => {
+        if (node === null) return;
+        // prints once we get to level
+        if (level === 1) {
+            console.log(node.value, ' ');
+        } else if (level > 1) {
+            this.printLevel(node.left, level-1);
+            this.printLevel(node.right, level-1);
+        }
+    }
+}
+
+
+///////////////////////////////////////////////
+
+// create an object for the BinarySearchTree 
+var BST = new BinarySearchTree(); 
+  
+// Inserting nodes to the BinarySearchTree 
+BST.iterativeInsert(15); 
+BST.iterativeInsert(25); 
+BST.iterativeInsert(10); 
+BST.iterativeInsert(7); 
+BST.iterativeInsert(22); 
+BST.iterativeInsert(17);
+BST.iterativeInsert(13); 
+BST.iterativeInsert(5); 
+BST.iterativeInsert(9); 
+BST.iterativeInsert(27);
+
+// prints 5 7 9 10 13 15 17 22 25 27 
+var root = BST.getRootNode(); 
+BST.printLevelsUsingQueue(root);
+console.log(BST.getTreeHeight(root));
+console.log('//////////////////////');
+BST.printLevels(root);
