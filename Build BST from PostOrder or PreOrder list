@@ -1,0 +1,20 @@
+1008. Construct Binary Search Tree from Preorder Traversal
+
+Very similar to the logic for testing whether a binary search tree is valid
+
+var bstFromPreorder = function(preorder) {
+
+    const buildTree = (lower, upper) => {
+        
+        if (preorder[0] < lower || preorder[0] > upper) return null;
+        
+        if (preorder.length == 0) return null;
+        
+        let root = new TreeNode(preorder.shift());
+        root.left = buildTree(lower, root.val);
+        root.right = buildTree(root.val, upper);
+        return root;
+    }
+
+    return buildTree(-Infinity, Infinity);
+}
