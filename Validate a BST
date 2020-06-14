@@ -1,0 +1,16 @@
+https://leetcode.com/articles/validate-binary-search-tree/
+
+var isValidBST = function(root) {
+    
+    const validateTree = (node, min, max) => {
+        if (node === null) return true;
+        if (!(node.val > min && node.val < max)) {
+            return false;
+        }
+        let leftValid = validateTree(node.left, min, node.val);
+        let rightValid = validateTree(node.right, node.val, max);
+        return leftValid && rightValid;
+    };
+
+    return validateTree(root, -Infinity, Infinity);
+};
