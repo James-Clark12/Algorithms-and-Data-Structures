@@ -18,3 +18,45 @@ var bstFromPreorder = function(preorder) {
 
     return buildTree(-Infinity, Infinity);
 }
+
+// building from postorder traversal
+// https://www.techiedelight.com/build-binary-search-tree-from-postorder-sequence/#:~:text=Given%20a%20distinct%20sequence%20of,tree%20from%20the%20postorder%20sequence.&text=For%20a%20given%20postorder%20sequence,it%20starting%20from%20the%20right.
+
+function TreeNode(val, left, right) {
+    this.val = (val===undefined ? 0 : val)
+    this.left = (left===undefined ? null : left)
+    this.right = (right===undefined ? null : right)
+}
+
+const bstFromPostOrder = (postOrder) => {
+
+    let index = postOrder.length-1;
+
+    const buildBST = (min, max) => {
+        // base case
+        if (index < 0) return null;
+
+        // if not in valid range return null
+        const curr = postOrder[index];
+        if (curr < min || curr > max) return null;
+
+        // construct node and decrement index
+        const node = new TreeNode(curr, null, null);
+        index = index-1;
+
+        // construct left and right subtree of the root node
+        // build right first as a we read backwards from the root
+        // (this is postorder array sequence)
+
+        node.right = buildBST(curr+1, max);
+        node.left = buildBST(min, curr-1);
+        return node;
+    }
+
+    return buildBST(-Infinity, Infinity);
+}
+
+console.log(
+    bstFromPostOrder([8,12,10,16,25,20,15])
+);
+
