@@ -1,0 +1,21 @@
+const iterativeInOrderTraversal = (root) => {
+    const stack = [];
+    let current = root;
+
+    while(current !== null || stack.length !== 0) {
+
+        if (current !== null) {
+            stack.push(current);
+            current = current.left;
+        } else if (current === null) {
+            current = stack.pop();
+            console.log('val is: ', current.val);
+            current = current.right;
+        }
+    }
+
+}
+
+var searchBST = function(root, val) {
+    iterativeInOrderTraversal(root);  
+};
