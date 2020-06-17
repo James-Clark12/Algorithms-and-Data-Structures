@@ -1,11 +1,13 @@
 const iterativeInOrderTraversal = (root) => {
     const stack = [];
+    const reverse = [];
     let current = root;
 
     while(current !== null || stack.length !== 0) {
 
         if (current !== null) {
             stack.push(current);
+            reverse.push(current);
             current = current.left;
         } else if (current === null) {
             current = stack.pop();
@@ -14,8 +16,55 @@ const iterativeInOrderTraversal = (root) => {
         }
     }
 
+    while (stack.length) {
+        console.log(stack.pop());
+    }
+
 }
 
-var searchBST = function(root, val) {
-    iterativeInOrderTraversal(root);  
-};
+iterativeInOrderTraversal(root);  
+
+const iterativePreOrderTraversal = (root) => {
+    const stack = [];
+    const reverse = [];
+    let current = root;
+
+    while(current !== null || stack.length !== 0) {
+
+        if (current !== null) {
+            console.log(current.val)
+            stack.push(current);
+            current = current.left;
+        } else if (current === null) {
+            current = stack.pop();
+            current = current.right;
+        }
+    }
+}
+
+iterativePreOrderTraversal(root);  
+
+const iterativePostOrderTraversal = (root) => {
+    const stack = [];
+    const reverse = [];
+    let current = root;
+
+    while(current !== null || stack.length !== 0) {
+
+        if (current !== null) {
+            stack.push(current);
+            reverse.push(current.val);
+            current = current.right;
+        } else if (current === null) {
+            current = stack.pop();
+            current = current.left;
+        }
+    }
+
+    while (reverse.length > 0) {
+        console.log('val: ', reverse.pop());
+    }
+
+}
+
+iterativePostOrderTraversal(root);  
