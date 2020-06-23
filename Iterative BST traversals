@@ -1,13 +1,11 @@
 const iterativeInOrderTraversal = (root) => {
     const stack = [];
-    const reverse = [];
     let current = root;
 
     while(current !== null || stack.length !== 0) {
 
         if (current !== null) {
             stack.push(current);
-            reverse.push(current);
             current = current.left;
         } else if (current === null) {
             current = stack.pop();
