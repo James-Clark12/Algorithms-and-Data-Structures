@@ -24,13 +24,12 @@ iterativeInOrderTraversal(root);
 
 const iterativePreOrderTraversal = (root) => {
     const stack = [];
-    const reverse = [];
     let current = root;
 
     while(current !== null || stack.length !== 0) {
 
         if (current !== null) {
-            console.log(current.val)
+            console.log(current.val) // do node action here
             stack.push(current);
             current = current.left;
         } else if (current === null) {
