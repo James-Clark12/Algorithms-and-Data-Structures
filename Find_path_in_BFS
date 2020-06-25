@@ -1,0 +1,27 @@
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+
+const hasPath = (node, stack, target) => {
+    if (node === null) {
+        return false;
+    }
+    stack.push(node.val);
+    if (node === target) {
+        return true;
+    }
+    if (hasPath(node.left, stack, target) || hasPath(node.right, stack, target)) {
+        return true;
+    }
+    stack.pop();
+    return false;
+}
+
+let pathToP = [];
+hasPath(root, pathToP, p);
+console.log(pathToP);
