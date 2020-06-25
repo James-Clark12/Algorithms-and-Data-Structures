@@ -1,0 +1,8 @@
+
+Binary Tree Toolkit
+
+What operations are useful?
+
+1. Find path from root to node
+2. Find path from node to node
+3. Check whether a BT is a BST
