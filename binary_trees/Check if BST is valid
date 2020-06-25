@@ -1,0 +1,15 @@
+// remember not just about each inner root fitting its children but also whether root's ancestors fit the child
+
+var isValidBST = function(root) {
+    
+    const checkIfValid = (node, min, max) => {
+        if (node === null) {
+            return true;  
+        } else if (node.val >= max || node.val <= min) {
+            return false;
+        } else {
+            return checkIfValid(node.left, min, node.val) && checkIfValid(node.right, node.val, max);
+        }
+    }
+    return checkIfValid(root);
+};
