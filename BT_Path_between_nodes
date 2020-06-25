@@ -1,0 +1,47 @@
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @param {TreeNode} p
+ * @param {TreeNode} q
+ * @return {TreeNode}
+ */
+var lowestCommonAncestor = function(root, p, q) {
+
+    const hasPath = (node, stack, target) => {
+        if (node === null) {
+            return false;
+        }
+        stack.push(node);
+        if (node === target) {
+            return true;
+        }
+        if (hasPath(node.left, stack, target) || hasPath(node.right, stack, target)) {
+            return true;
+        }
+        stack.pop();
+        return false;
+    }
+    
+    let pathToP = [];
+    let pathToQ = [];
+    if (!(hasPath(root, pathToP, p) && hasPath(root, pathToQ, q))) {
+        console.log('There is no path')
+    }
+    let ancestor = root;
+    for(let i=0; i<=pathToQ.length; i++) {  // which is shorter doesnt matter as must have a connector before or at end (hence <= not <)
+        if (pathToQ[i] !== pathToP[i]) {
+            ancestor = pathToQ[i-1];
+            break;
+        }
+    }
+    // console.log(pathToP);
+    // console.log(pathToQ);
+    // console.log(ancestor)
+    return ancestor;
+}
