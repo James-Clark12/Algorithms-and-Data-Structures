@@ -1,0 +1,12 @@
+// helps us find the node where p and q are in its left and right subtree (or it is p or q)
+const lowestCommonAncestor = (node, p, q) => {
+    if (!node) return null;
+    if (node === p || node === q) return node;
+    const nodeIsInLeft = lowestCommonAncestor(node.left, p, q)
+    const nodeIsInRight = lowestCommonAncestor(node.right, p, q)
+    if (nodeIsInRight && nodeIsInLeft) {
+        return node; // this is the LCA
+    }
+    if (nodeIsInLeft === null) return nodeIsInRight  // p and q are in the right subtree
+    if (!nodeIsInRight === null) return nodeIsInLeft  // p and q are in the left subtree
+};
