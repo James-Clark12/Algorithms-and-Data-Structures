@@ -1,0 +1,22 @@
+var bfsMap = function(root) {
+    let stack = [root];
+    let nextStack = [];
+    let level = [];
+    const levels = [];
+    
+    while(stack.length) {        
+        while(stack.length) {
+            const curr = stack.shift();
+            if (curr !== null) {
+                nextStack.push(curr.left);
+                nextStack.push(curr.right);   
+            }
+            level.push(curr !== null ? curr.val : 'null');
+        }
+        stack = nextStack;
+        nextStack = [];
+        levels.push(level);
+        level = [];
+    }
+    return levels;
+}
