@@ -280,3 +280,60 @@ We can also achieve this using the hasPath method from above:
 		return ancestor;
 	}
 
+# Building a BST from traversal data
+
+### Building a BST from PreOrder traversal data
+
+A very similar to the logic to testing whether a binary search tree is valid is used.
+
+    var bstFromPreorder = function(preorder) {
+    
+	    const buildTree = (lower, upper) => {
+		    if (preorder[0] < lower || preorder[0] > upper) return null;
+		    if (preorder.length == 0) return null;
+		    let root = new TreeNode(preorder.shift());
+		    root.left = buildTree(lower, root.val);
+		    root.right = buildTree(root.val, upper);
+		    return root;
+	    }
+	    
+	    return buildTree(-Infinity, Infinity);
+    }
+
+### Building a BST from PostOrder traversal data
+
+https://www.techiedelight.com/build-binary-search-tree-from-postorder-sequence/#:~:text=Given%20a%20distinct%20sequence%20of,tree%20from%20the%20postorder%20sequence.&text=For%20a%20given%20postorder%20sequence,it%20starting%20from%20the%20right.
+
+    const bstFromPostOrder = (postOrder) => {
+    
+	    let index = postOrder.length-1;
+	    
+	    const buildBST = (min, max) => {
+		    // base case
+		    if (index < 0) return null;
+		    
+		    const curr = postOrder[index];
+		    
+		    // if not in valid range return null
+		    if (curr < min || curr > max) return null;
+		    
+		    // construct node and decrement index
+		    const node = new TreeNode(curr, null, null);
+		    index = index-1;
+	    
+		    // construct left and right subtree of the root node
+		    // build right first as a we read backwards from the root
+		    // this is postorder array sequence
+		    node.right = buildBST(curr+1, max);
+		    node.left = buildBST(min, curr-1);
+		    return node;
+	    }
+	    
+	    return buildBST(-Infinity, Infinity);
+    }
+    
+    console.log(bstFromPostOrder([8,12,10,16,25,20,15]));
+
+### Building a BST from InOrder traversal data
+
+This cannot be done as the InOrder traversal data doesn't not give you sufficient information to identify the exact structure of the BST. You can of course build a BST using InOrder data but there is no guarantee it will have the same structure that the data is from.
