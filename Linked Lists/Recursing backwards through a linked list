@@ -28,3 +28,7 @@ function reverse (node, previous) {
     // new head is just the previous tail - not used - it is just what the question asks us to return
     return newHead;
 }
+
+Applicable problem here:
+
+https://leetcode.com/problems/palindrome-linked-list/solution/
