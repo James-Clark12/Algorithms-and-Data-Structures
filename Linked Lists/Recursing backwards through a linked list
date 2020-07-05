@@ -1,0 +1,30 @@
+Recursion gives us an elegant way to iterate through the nodes in reverse. For example, this algorithm will print out the values of the nodes in reverse.
+Given a node, the algorithm checks if it is null. If it is null, nothing happens. 
+Otherwise, all nodes after it are processed, and then the value for the current node is printed.
+
+function print_values_in_reverse(ListNode head)
+    if head is NOT null
+        print_values_in_reverse(head.next)
+        print head.val
+        
+This is a powerful tool - If we iterate the nodes in reverse using recursion, and iterate forward at the same time using a variable 
+outside the recursive function, then we can check whether or not we have a palindrome.
+
+Used nicely to solve - https://leetcode.com/problems/reverse-linked-list/
+
+var reverseList = function(head) {
+    return head ? reverse(head, null) : head;
+};
+
+function reverse (node, previous) {
+    let newHead = node;
+
+    // recursive up to the tail
+    if (node.next) {
+        newHead = reverse(node.next, node);
+    }
+    // reverse from tail all the way up to head
+    node.next = previous;
+    // new head is just the previous tail - not used - it is just what the question asks us to return
+    return newHead;
+}
