@@ -2,7 +2,7 @@ Linked list tool kit
 
 -Add here the most important Linked List methods/ tools
 
-1. cycle detection
+1. cycle detection + cycle beginning detection
 2. reversing through list using recursion
 3. removing duplicates
 4. partitioning around element
