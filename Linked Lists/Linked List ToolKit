@@ -6,3 +6,4 @@ Linked list tool kit
 2. reversing through list using recursion
 3. removing duplicates
 4. partitioning around element
+5. very nice method for finding intersection of two LL (and how Floyd can be used alternatively)
