@@ -13,7 +13,10 @@ outside the recursive function, then we can check whether or not we have a palin
 Used nicely to solve - https://leetcode.com/problems/reverse-linked-list/
 
 var reverseList = function(head) {
-    return head ? reverse(head, null) : head;
+    if (head === null) {
+        return null;
+    }
+    return reverse(head, null);
 };
 
 function reverse (node, previous) {
