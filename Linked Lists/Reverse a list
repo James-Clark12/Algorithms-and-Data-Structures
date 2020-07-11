@@ -1,0 +1,22 @@
+var reverseList = function(head) {
+  
+    let newHead = null;
+    
+    const recurse = (node) => {
+        if (node !== null) {
+            let newPrevNode = recurse(node.next);
+            if (node) {
+                head.next = null;
+                console.log(node.val);
+                if (newPrevNode) {
+                    newPrevNode.next = node;
+                } else {
+                    newHead = node;
+                }
+            }
+            return node;
+        }
+    }
+    recurse(head);
+    return newHead;
+};
