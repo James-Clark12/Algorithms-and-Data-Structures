@@ -1,4 +1,4 @@
-var reverseList = function(head) {
+var reverseListRecursively = function(head) {
   
     let newHead = null;
     
@@ -19,4 +19,18 @@ var reverseList = function(head) {
     }
     recurse(head);
     return newHead;
+};
+
+
+var reverseListIteratively = function(head) {
+    if (head === null) return null;
+    let node = head;
+    let prev = null;
+    while(node !== null) {
+        let next = node.next;
+        node.next = prev;
+        prev = node;
+        node = next;
+    }
+    return prev;
 };
