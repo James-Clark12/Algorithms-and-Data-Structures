@@ -1,0 +1,12 @@
+var printListInReverse = function(head) {
+    const recurse = (node) => {
+        if (node !== null) {
+            recurse(node.next);
+            if (node) {
+                console.log(node.val);
+            }
+            return node;
+        }
+    }
+    recurse(head);
+};
