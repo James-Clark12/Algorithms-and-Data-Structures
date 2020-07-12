@@ -1,5 +1,59 @@
 Question: https://leetcode.com/problems/plus-one-linked-list/
 
+/* Extended method to add any number to a LL */
+
+var plusOne = function(head, numToAdd=1) {
+
+    if (head===null) return null;
+    
+    const sentinel = new ListNode(0, head);
+    sentinel.prev = null;
+    let prev = sentinel;
+    
+    head.prev = sentinel;
+    let node = head;
+    
+    while(node !== null) {
+        node.prev = prev;
+        prev = node;
+        node = node.next;
+    }
+    
+    node = prev;
+    
+    let carry = numToAdd;
+    
+    while(true) {
+        if (carry === 0) {
+            if (sentinel.val !== 0) {
+                return sentinel
+            }
+            return head;  
+        }
+        if (node === null) {
+            const newSentinel = new ListNode(0, sentinel);
+            newSentinel.prev = null;
+            sentinel = newSentinel;
+            node = newSentinel;
+        }
+        let sum = node.val + carry;
+        if (sum < 10) {
+            node.val = sum;
+            if (sentinel.val !== 0) {
+                return sentinel
+            }
+            return head;
+        }
+        if (sum >= 10) {
+            node.val = sum%10;
+            carry = Math.floor(sum / 10);
+            node = node.prev;
+        }
+    }
+    
+};
+
+
 // leetcode method - good but harder to extend for other additions
 
 var plusOne = function(head) {
