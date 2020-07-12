@@ -1,0 +1,116 @@
+Question: https://leetcode.com/problems/plus-one-linked-list/
+
+// leetcode method - good but harder to extend for other additions
+
+var plusOne = function(head) {
+    
+    const sentinel = new ListNode(0);
+    sentinel.next = head;
+    notNine = sentinel;
+    
+    let node = head;
+    
+    // find the last not 9 in the list
+    while(node !== null) {
+        if (node.val !== 9) {
+            notNine = node;
+        }
+        node = node.next;
+    }
+    
+    // increase notNine
+    notNine.val = notNine.val + 1;
+    notNine = notNine.next;
+    
+    // set all values after notNine (which are all 9s if such values are there at all)
+    while (notNine !== null) {
+        notNine.val = 0;
+        notNine = notNine.next;
+    }
+    
+    if (sentinel.val !== 0) {
+        //sentinel was the first notNine
+        // return it as the new list head
+        return sentinel;
+    } else {
+        //return the list head
+        return head;
+    }
+    
+};
+
+// Probs simplest extensible method using iteration and list changes
+
+var plusOne = function(head) {
+
+    if (head===null) return null;
+    
+    const sentinel = new ListNode(0, head);
+    sentinel.prev = null;
+    let prev = sentinel;
+    
+    head.prev = sentinel;
+    let node = head;
+    
+    while(node !== null) {
+        node.prev = prev;
+        prev = node;
+        node = node.next;
+    }
+    
+    node = prev;
+    
+    while(true) {
+        if (node.val < 9) {
+            node.val = node.val + 1;
+            if (sentinel.val !== 0) {
+                return sentinel
+            }
+            return head;
+        }
+        if (node.val === 9) {
+            node.val = 0;
+            node = node.prev;
+        }
+    }
+    
+
+// Lovey method using a stack
+
+var plusOne = function(head) {
+    const stack = [];
+    
+    // push everything onto the stack
+    let curr = head;
+    while (curr) {
+        stack.push(curr);
+        curr = curr.next;
+    }
+    
+    let carry = true;
+    while (stack.length > 0) {
+        curr = stack.pop();
+        
+        if (carry) {
+            curr.val = curr.val + 1;
+            carry = false;
+        }
+        
+        if (curr.val === 10) {
+            curr.val = 0;
+            carry = true;
+            
+            if (carry && stack.length === 0) {
+                // need to add a new head node with value one
+                const newhead = new ListNode(1);
+                newhead.next = head;
+                return newhead;
+            }
+        } else {
+            // If we added one and don't have to carry, no need to look at rest of stack
+            return head;
+        }
+    }
+    
+    return head;
+};
