@@ -1,0 +1,30 @@
+var oddEvenList = function(head) {
+
+    if (head === null) return null;
+    if (!head.next) return head;
+    
+    let odd = head;
+    let even = head.next;
+    let origEven = even;
+    
+    while(true) {
+
+        if (even && even.next) {
+            odd.next = even.next;        
+        } else {
+            odd.next = origEven;
+            break;
+        }
+
+        if (odd.next) {
+            even.next = odd.next.next;    
+            odd = odd.next;
+            even = even.next;
+        } else {
+            odd.next = origEven;
+            even.next = null;
+            break;
+        }
+    }
+    return head;
+};
