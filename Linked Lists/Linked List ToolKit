@@ -8,3 +8,5 @@ Linked list tool kit
 4. partitioning around element
 5. very nice method for finding intersection of two LL (and how Floyd can be used alternatively)
 6. Method where you can iterate forwards and backwards through list at same time is complicated by solves a lot of problems
+7. stitching two lists together
+8. unstitching a single list into two
