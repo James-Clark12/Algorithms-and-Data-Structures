@@ -1,0 +1,42 @@
+const insertionSortList = head => {
+  if (!head || !head.next) return head;
+
+  const sentinel = { next: head };
+
+  let prev = head;
+  let curr = head.next;
+
+  while (curr) {
+    
+    if (curr.val >= prev.val) {
+        // in the correct place
+        prev = curr;
+        curr = curr.next;
+    } else {
+
+        const next = curr.next;
+        let pos = sentinel;
+
+        // iterate through the sorted part of the list to the first place
+        // where a curr.val is less than a given node
+        while (pos.next && pos.next !== curr && curr.val > pos.next.val) {
+            pos = pos.next;
+        }
+
+        // if we have found a place for curr differnt from
+        // where it already was - then move it there
+        if (pos.next !== curr) {
+            // enter curr.val just before that val which is greater than it
+            curr.next = pos.next;
+            pos.next = curr;
+            prev.next = next;
+            curr = next;   
+        }
+    }
+  }
+  // prev now points to the end of the list so make sure it
+  // doesnt point anywhere else
+  prev.next = null;
+
+  return sentinel.next;
+};
