@@ -10,3 +10,4 @@ Linked list tool kit
 6. Method where you can iterate forwards and backwards through list at same time is complicated by solves a lot of problems
 7. stitching two lists together
 8. unstitching a single list into two
+9. Using sentienls is critical to handling edge cases
