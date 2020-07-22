@@ -1,0 +1,30 @@
+var removeNthFromEnd = function(head, n) {
+
+    // what do if list length less than n?
+    if (!head) return null;
+    
+    let node = head;
+    let sentinel = {next: head};
+    let prev = sentinel;
+    let runner = head;
+    
+    // put runner n ahead of node
+    let counter = n;
+    while(counter > 0) {
+        runner = runner.next;
+        counter = counter - 1;
+    }
+    
+    // iterate runner to end of list
+    // node will be n behind
+    while(runner !== null) {
+        runner = runner.next;
+        prev = prev.next;
+        node = node.next;
+    }
+    
+    // cut out node as it is the length-n node
+    prev.next = node.next;
+    node.next = null;
+    return sentinel.next;
+};
