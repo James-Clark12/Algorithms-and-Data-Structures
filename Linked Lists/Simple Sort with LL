@@ -1,0 +1,38 @@
+const insertionSortList = head => {
+  if (!head || !head.next) return head;
+
+  const sentinel = { next: head };
+
+  let prev = sentinel;
+  let pointer = head;
+
+  while(pointer) {
+      let smallestPrev = prev;
+      let smallest = pointer;
+      let runnerPrev = prev;
+      let runner = pointer;
+      while(runner !== null) {
+          if (runner.val < smallest.val) {
+              smallest = runner;
+              smallestPrev = runnerPrev;
+          }
+          runnerPrev = runner;
+          runner = runner.next;
+      }
+      
+      if (smallest !== pointer) {
+          //cut out smallest
+          smallestPrev.next = smallest.next;
+          smallest.next = null;
+
+          // put smallest at position of pointer
+          smallest.next = pointer;
+          prev.next = smallest;
+      }
+      
+      // increment prev and pointer
+      prev = prev.next;
+      pointer = prev.next;
+  }
+    return sentinel.next;
+};
