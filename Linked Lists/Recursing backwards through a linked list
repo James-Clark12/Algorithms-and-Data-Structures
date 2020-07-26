@@ -7,6 +7,18 @@ function print_values_in_reverse(ListNode head)
         print_values_in_reverse(head.next)
         print head.val
         
+        
+Which is just:
+
+let pointer = head;
+
+const recurseBackwards = (node) => {
+    if (node !== null) {
+        recurseBackwards(node.next);
+        // do anything with pointer here
+    }
+}
+        
 This is a powerful tool - If we iterate the nodes in reverse using recursion, and iterate forward at the same time using a variable 
 outside the recursive function, then we can check whether or not we have a palindrome.
 
