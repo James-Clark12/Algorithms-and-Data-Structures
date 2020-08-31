@@ -1,85 +1,14 @@
-/* Should edit this to a class with prototype methods rather than a series of functions - show of class/ prototype based inheritance understanding */
 
-
-/* Key thing to remember with these functions is what you want out
-
-// if you want to store some satellite information at every vertex then you could add the vertex itself to
-// the values that the vertex maps to and then as the value of each vertex (which are the keys) have the
-// sattelite information. At current - only edges are represented by the mapping and edge data (such as weight)
-// can be represented in the mapping
-// p.s. by represented in the mapping I mean that we are setting keys but not values - so values can be added
-// if we want to store information
-
-// asumes directionless edges
-// edgeSatelliteData is an optional field
-
-*/
-
-const addEdge = (vertex1, vertex2, graph, edgeSatelliteData) => {
-  // add edge from vertex 1 to vertex 2
-  if (graph.has(vertex1)) {
-    graph.get(vertex1).set(vertex2, edgeSatelliteData);
-  } else {
-    graph.set(vertex1, new Map());
-    graph.get(vertex1).set(vertex2, edgeSatelliteData);
-  }
-  // add edge from vertex 2 to vertex 1
-  if (graph.has(vertex2)) {
-    graph.get(vertex2).set(vertex1, edgeSatelliteData);
-  } else {
-    graph.set(vertex2, new Map());
-    graph.get(vertex2).set(vertex1, edgeSatelliteData);
-  }
-}
-
-// checks a specific directional edge
-const checkEdge = (vertex1, vertex2, graph) => {
-  if (graph.get(vertex1).has(vertex2)) {
-    console.log('Edge: {', vertex1, ',', vertex2, '} does exist.');
-  } else {
-    console.log('Edge: {', vertex1, ',', vertex2, '} does not exist.');
-  }
-  return graph.get(vertex1).has(vertex2);
-}
-
-// assumes directionless edges
-const deleteEdge = (vertex1, vertex2, graph) => {
-  graph.get(vertex1).delete(vertex2);
-  graph.get(vertex2).delete(vertex1);
-}
-
-const BFS = (graph, vertex) => {
-  let Q = new Set();
-  Q.add(vertex);
+const BFS = (graph, startVertext, target) => {
+  const Q = new Set();
   const visited = new Set();
+  Q.add(startVertext);
   while (Q.size) {
-    let queueValues = [...Q];
-    console.log('queueValues ', queueValues);
-    const v = queueValues.shift();
-    console.log('v is: ', v);
+    const v = [...Q].shift();
     Q.delete(v);
     let neighbours = [...graph.get(v).keys()];
     neighbours = neighbours.filter(p => !visited.has(p));
-    console.log('neighbours is: ', neighbours);
     neighbours.forEach(p => Q.add(p));
-    console.log('Q is: ', Q);
-    console.log('Currently at: ', v);
     visited.add(v);
   }
 }
-
-// const graphMap = new Map();
-//
-// console.log(graphMap);
-// addEdge(1,2, graphMap, 'cow');
-// addEdge(1,3, graphMap, 'cat');
-// addEdge(1,4, graphMap, 'sheep');
-// addEdge(1,5, graphMap, 'spider');
-// addEdge(2,3, graphMap, 'moose');
-// addEdge(2,6, graphMap, 'fish');
-// addEdge(5,6, graphMap, 'fish');
-// addEdge(5,12, graphMap, 'crow');
-// addEdge(13,14, graphMap, 'crow');
-// console.log(graphMap);
-// //DFS(1, graphMap, new Map());
-// BFS(graphMap, 1);
