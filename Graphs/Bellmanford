@@ -1,0 +1,5 @@
+https://www.youtube.com/watch?v=obWXjtg0L64
+
+Only real advantage of BellmanFord over Dijkstra is that it can detect negative cycles.
+
+I feel that Dijkstra could fairly easily be updates to catch negative cycles. Not sure, but suppose rather than ignoring visited all nodes - then afterwards saw if a further iteration would relax weights further - would that show that a negative cycle is present?
