@@ -87,3 +87,53 @@ const Dijkstra = (graph, firstVertex) => {
   };
 }
 }
+
+// less descriptively written
+
+
+const dijkstra = (graph, startVertex) => {
+
+    // for recording we need
+    const visited = new Set();
+    const distances = {};
+    const prevVertex = {};
+    const Q = new PriorityQueue();
+
+    // set up start data
+    [...graph.keys()].forEach(vertex => {
+        distances[vertex] = Infinity;
+        prevVertex[vertex] = null;
+    })
+    distances[startVertex] = 0;
+    Q.add(startVertex, 0);
+
+    //while loop that does the work
+    while(Q.length) {
+        const vertex = Q.pop();
+
+        //get vertex neighbours
+        const neighbours = [...graph.get(vertex).keys()];
+
+        //relax paths
+        neighbours.forEach(neighbour => {
+            if(!visited.has(neighbour)) {
+                let currentWeight = distances[neighbour];
+                let possibleWeight = distances[vertex] + graph.get(vertex).get(neighbour);
+
+                if (possibleWeight < currentWeight) {
+                    // update the weights
+                    distances[neighbour] = possibleWeight;
+                    prevVertex[neighbour] = vertex;
+                    if (Q.has(neighbour)) {
+                        Q.setWeight(neighbour, possibleWeight);
+                    } else {
+                        Q.add(neighbour, possibleWeight);
+                    }
+                }
+            }
+        })
+
+        visited.add(vertex);
+    }
+    return {distances, prevVertex};
+}
