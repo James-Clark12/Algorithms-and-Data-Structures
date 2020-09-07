@@ -8,3 +8,5 @@ Likewise, we say that the indegree of a vertex (person) is the number of directe
 trusted by that person.
 
 These two definitions are important as sometimes the vertex we are looking for can be defined in terms of its outdegree and indegree.
+
+Good article on class based implementations of grpah algorithms in JS: https://www.freecodecamp.org/news/8-essential-graph-algorithms-in-javascript/
