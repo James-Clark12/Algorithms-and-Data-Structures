@@ -1,5 +1,64 @@
+/*
 When doing a DFS, any node is in one of three states - before being visited, during recursively visiting its descendants, and after all its descendants have been visited (returning to its parent, i.e., wrap-up phase). The three colors correspond to each of the three states. One of the reasons for mentioning colors and time of visit and return is to explicitly make these distinctions for better understanding.
 
 Of course, there are actual uses of these colors. Consider a directed graph G. Suppose you want to check G for the existence of cycles. In an undirected graph, if the node under consideration has a black or grey neighbor, it indicates a cycle (and the DFS does not visit it as you mention). However, in case of a directed graph, a black neighbor does not mean a cycle. For example, consider a graph with 3 vertices - A,B, and C, with directed edges as A→B, B→C, A→C. Suppose the DFS starts at A, then visits B, then C. When it has returned to A, it then checks that C has already been visited and is black. But there is no cycle in the graph.
 
 In a directed graph, a cycle is present if and only if a node is seen again before all its descendants have been visited. In other words, if a node has a neighbor which is grey, then there is a cycle (and not when the neighbor is black). A grey node means we are currently exploring its descendants - and if one such descendant has an edge to this grey node, then there is a cycle. So, for cycle detection in directed graphs, you need to have 3 colors.
+*/
+
+// Identifying a cycle using a record of the recursion stack
+
+const isCyclicUtil = (graph, vertex, visited, recStack) => {
+    // confirmed that we are in a cycle
+
+    if (recStack.get(vertex) === true) {
+        return true;
+    }
+    // have done check before and it must have returned false so can return false
+    if (visited.get(vertex) === true) return false;
+
+    // visited is just a record of what nodes we have performed the isCyclic check on
+    visited.set(vertex, true);
+
+    // we are recursing down from our starting node vertex
+    // we pass this record of what nodes we have visited in our recurse down
+    // if we touch the same one again we are in a cycle
+    recStack.set(vertex, true);
+
+    let neighbours = [...graph.get(vertex).keys()];
+    
+    // checks from this vertex - can we find a cycle in any of its neighbours
+    if (neighbours.length && neighbours.some(neighbour => isCyclicUtil(graph, neighbour, visited, recStack))) {
+        return true;
+    } else {
+        recStack.set(vertex, false);
+        return false;
+    }
+}
+
+// checks if a single vertex has any cyclical paths connected to it
+// in a single forest graph this is sufficient to check the whole thing for the existence of a cycle
+const isCyclic = (vertex, graph) => {
+    const visited = new Map();
+    const recStack = new Map();
+    return isCyclicUtil(graph, vertex, visited, recStack);
+}
+
+const graph = new Map();
+graph.set(1, new Map());
+graph.set(2, new Map());
+graph.set(3, new Map());
+graph.set(4, new Map());
+graph.set(5, new Map());
+graph.set(6, new Map());
+graph.set(7, new Map());
+
+graph.get(1).set(2);
+graph.get(2).set(3);
+graph.get(3).set(4);
+graph.get(4).set(5);
+graph.get(4).set(2);
+graph.get(5).set(6);
+graph.get(6).set(7);
+
+console.log(isCyclic(5, graph));
