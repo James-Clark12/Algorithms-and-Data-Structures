@@ -36,3 +36,66 @@ The steps are:
 4. Go down the list and color every vertex not connected to that first vertex the same color.
 5. Cross out/ ignore all coloured vertices
 6. Repeat the process 2-5 on the remaining vertices using a new colour, working in descending order of valence, until all the vertices have been coloured.
+
+
+const graph = new Map();
+
+graph.set(1, new Map());
+graph.set(2, new Map());
+graph.set(3, new Map());
+graph.set(4, new Map());
+graph.set(5, new Map());
+
+graph.get(1).set(2);
+graph.get(1).set(3);
+
+graph.get(2).set(1);
+graph.get(2).set(3);
+graph.get(2).set(4);
+
+graph.get(3).set(1);
+graph.get(3).set(2);
+graph.get(3).set(4);
+
+graph.get(4).set(2);
+graph.get(4).set(3);
+graph.get(4).set(5);
+
+graph.get(5).set(4);
+
+const numOfColorsNeeded = (graph) => {
+    // create these two maps to visualise what is what color
+    // two maps isnt necessary - its just a choice
+    const vertexToColourMap = new Map();
+    const colorToVerticesMap = new Map();
+    let currentColour = 1;
+    let keys = [...graph.keys()];
+    // sort keys in descending order
+    keys = keys.sort((a,b) => {
+        return graph.get(b).keys() - graph.get(a).keys();
+    });
+    while(keys.length) {
+        // repeatedly set the vertex with the most valence with a colour
+        // then set all other vertices unconnected to vertices coloured that colour to that colour
+        // remove them from keys
+        vertexToColourMap.set(keys[0], currentColour);
+        colorToVerticesMap.set(currentColour, []);
+        colorToVerticesMap.get(currentColour).push(keys[0]);
+        keys = keys.filter((key, index) => {
+            // check if it is connected to an existing vertex
+            if (index === 0) {
+                return false;
+            } else if (colorToVerticesMap.get(currentColour).some(vertex => graph.get(key).has(vertex))) {
+                return true;
+            } else {
+                vertexToColourMap.set(key, currentColour);
+                colorToVerticesMap.get(currentColour).push(key);
+                return false;
+            }
+        });
+        currentColour++;
+    }
+    return [vertexToColourMap, colorToVerticesMap];
+}
+
+console.log(numOfColorsNeeded(graph));
