@@ -10,3 +10,18 @@ trusted by that person.
 These two definitions are important as sometimes the vertex we are looking for can be defined in terms of its outdegree and indegree.
 
 Good article on class based implementations of grpah algorithms in JS: https://www.freecodecamp.org/news/8-essential-graph-algorithms-in-javascript/
+
+Topics:
+
+BFS
+DFS
+Dijk
+Prims
+
+Cycle Detection
+Colouring
+Union find
+topological sort
+
+adjacency representation
+matric representation
