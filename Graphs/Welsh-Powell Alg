@@ -1,7 +1,0 @@
-http://mrsleblancsmath.pbworks.com/w/file/fetch/46119304/vertex%20coloring%20algorithm.pdf
-
-Fairly simple idea for colouring a graph in an efficient idea
-
-Depending on the colour question it may be simpler to just use the greedy solution
-
-Remember no algorithm can guarantee you the best answer for a colouring question so just providing a good enough answer is the goal.
