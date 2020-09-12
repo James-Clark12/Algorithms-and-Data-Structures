@@ -62,3 +62,58 @@ graph.get(5).set(6);
 graph.get(6).set(7);
 
 console.log(isCyclic(5, graph));
+
+// white, grey, black method - essentially the same thing just with a single map that contains 3 options rather than one (white, grey, black vs true and false0
+
+const isCyclicUtil = (graph, vertex, processMap) => {
+
+    // like the recursion stack method except
+    // white means untouched
+    // grey means in recursion stack/ processing
+    // black means visited and passed checks
+
+    // confirmed that we are in a cycle
+    if (processMap.get(vertex) === 'grey') {
+        return true;
+    }
+    // have done check before and it must have returned false so can return false
+    if (processMap.get(vertex) === 'black') return false;
+
+    processMap.set(vertex, 'grey');
+
+    let neighbours = [...graph.get(vertex).keys()];
+    
+    // checks from this vertex - can we find a cycle in any of its neighbours
+    if (neighbours.length && neighbours.some(neighbour => isCyclicUtil(graph, neighbour, processMap))) {
+        return true;
+    } else {
+        processMap.set(vertex, 'black');
+        return false;
+    }
+}
+
+// checks if a single vertex has any cyclical paths connected to it
+// in a single forest graph this is sufficient to check the whole thing for the existence of a cycle
+const isCyclic = (vertex, graph) => {
+    const processMap = new Map();
+    return isCyclicUtil(graph, vertex, processMap);
+}
+
+const graph = new Map();
+graph.set(1, new Map());
+graph.set(2, new Map());
+graph.set(3, new Map());
+graph.set(4, new Map());
+graph.set(5, new Map());
+graph.set(6, new Map());
+graph.set(7, new Map());
+
+graph.get(1).set(2);
+graph.get(2).set(3);
+graph.get(3).set(4);
+graph.get(4).set(5);
+graph.get(4).set(7);
+graph.get(5).set(6);
+graph.get(6).set(7);
+
+console.log(isCyclic(1, graph));
