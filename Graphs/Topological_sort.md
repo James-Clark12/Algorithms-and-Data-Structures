@@ -113,7 +113,7 @@ An alternative algorithm for topological sorting is based on depth-first search.
 
 Each node _n_ gets _prepended_ (unshift to the start of the list) to the output list L only after considering all other nodes which depend on _n_ (all descendants of _n_ in the graph). Specifically, when the algorithm adds node _n_, we are guaranteed that all nodes which depend on _n_ are already in the output list L: they were added to L either by the recursive call to visit() which ended before the call to visit _n_, or by a call to visit() which started even before the call to visit _n_. Since each edge and node is visited once, the algorithm runs in linear time.
 
-It is very similar to the painting algorithm used to detect cycles.
+It is very similar to the black, grey, white algorithm used to detect cycles.
 
     L ← Empty list that will contain the sorted nodes
 	**while** exists nodes without a permanent mark **do**
@@ -134,3 +134,63 @@ It is very similar to the painting algorithm used to detect cycles.
     remove temporary mark from n
     mark n with a permanent mark
     add n to _head_ of L
+
+What this in effect does is repeatedly recurse down the graph to the deepest node (i.e. the one with dependencies but no dependent). These nodes are shifted up the visitInThisOrder list as we add more nodes. If we find a cycle we immediately return false.
+
+**JavaScript implementation:**
+
+    const DFSTopologicalSort = (graph) => {
+		
+		const DFSMethod = (graph, vertex, processMap, sortedOrder) => {
+			// already processed so skip
+			if(processMap.get(vertex)==='black') return false;
+			// there is a cycle so break alg
+			if(processMap.get(vertex)==='grey') return true;
+			// else mark that we are processing this vertex
+			processMap.set(vertex,'grey');
+
+			const neighbours = [...graph.get(vertex).keys()];
+			neighbours.forEach(neighbour => {
+				if (DFSMethod(graph, neighbour, processMap, sortedOrder)) {
+					// if it returns true then there is a cycle
+					// and we should return this info up
+					return true;
+				}
+			});
+			// we have process all a node descendents so can set it to processed
+			// and add it to sortedOrder list
+			processMap.set(vertex, 'black');
+			sortedOrder.unshift(vertex);
+			// no cycle so return false
+			return false;
+		}
+
+		const processMap = new Map();		
+		const vertices = [...graph.keys()];
+		const sortedOrder = [];
+		while(vertices.length) {
+			const vertex = vertices.pop();
+			// if cycle it will return true
+			// else will return false and fill sortedOrder array
+			if(DFSMethod(graph, vertex , processMap, sortedOrder)) {
+				return 'error cycle/ not DAG'
+			}
+		}
+		return sortedOrder;
+	}
+	
+	const  DAG = new  Map();
+	DAG.set(1, new  Map());
+	DAG.set(2, new  Map());
+	DAG.set(3, new  Map());
+	DAG.set(4, new  Map());
+	DAG.set(5, new  Map());
+
+	DAG.get(1).set(2);
+	DAG.get(1).set(5);
+	DAG.get(2).set(3);
+	DAG.get(5).set(2);
+	DAG.get(5).set(3);
+	DAG.get(3).set(4);
+
+	console.log(DFSTopologicalSort(DAG));
