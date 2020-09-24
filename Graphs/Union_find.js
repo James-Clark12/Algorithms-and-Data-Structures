@@ -64,8 +64,9 @@ const SimpleUnionFind = (graph) => {
         index = passedIndex;
         while(index !== setsRecord[index]) {
             // iterate up the tree to find the root
-            index = setsRecord[index];
+            let newIndex = setsRecord[index];
             setsRecord[index] = root;
+            index = newIndex;
         }
         return root;
     }
