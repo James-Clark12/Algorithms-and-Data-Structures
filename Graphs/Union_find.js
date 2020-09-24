@@ -153,3 +153,74 @@ const UnionFindWithNoProxyVals = (graph) => {
     }
 
 }
+
+// Example of union find in action: leetcode question: https://leetcode.com/problems/friend-circles/submissions/
+
+const findRoot = (passedIndex, setMap) => {
+    let index = passedIndex;
+    while(index !== setMap[index]) {
+        index = setMap[index];
+    }
+    // make all examined nodes point to the root
+    // flattens tree so optimises time
+    const root = index;
+    index = passedIndex;
+    while(index !== setMap[index]) {
+        // iterate up the tree to find the root
+        let newIndex = setMap[index];
+        setMap[index] = root;
+        index = newIndex;
+    }
+    return root;
+}
+
+const inSameSet = (p, q, setMap) => {
+    return findRoot(p, setMap) === findRoot(q, setMap);
+}
+
+const union = (p, q, setMap) => {
+    const rootOfP = findRoot(p, setMap);
+    const rootOfQ = findRoot(q, setMap);
+    setMap[rootOfQ] = rootOfP;
+}
+
+const processNode = (node, setMap, M) => {
+    const neighboursMap = M[node];
+    const trueNeighbours = [];
+    neighboursMap.forEach((val, index) => {
+        if (val === 1 && index !== node) {
+            trueNeighbours.push(index);
+        }
+    })
+    trueNeighbours.forEach(neighbour => {
+        // like a DFS go through neighbours unifying them
+        if (!inSameSet(node, neighbour, setMap)) {
+            union(node, neighbour, setMap);
+            processNode(neighbour, setMap, M);
+        }
+    })
+}
+
+var findCircleNum = function(M) {
+    
+    const setMap = [];
+    const queue = [];
+    const N = M.length;
+    
+    for(let i=0; i<N; i++) {
+        // all nodes start in their own set
+        setMap[i] = i;
+        queue.push(i);
+    }
+    
+    //console.log('setMap 0: ', setMap);
+    
+    while(queue.length) {
+        const node = queue.pop();
+        processNode(node, setMap, M);
+    }
+
+    // return number of distinct sets in setMap
+    console.log('setMap ', setMap)
+    return new Set([ ...setMap]).size;
+};
