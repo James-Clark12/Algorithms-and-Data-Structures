@@ -1,4 +1,13 @@
 
+// Union and Find are just the name of two operations
+// the key to this 'algorithm' is actually the data structure used
+// the disjoin set structure
+// it is simply an array where the index in the array represents the node
+// and the value at that index is a link to the parent/ root/ key for the set it is 
+// a member of
+// follow the values (using them as a link to another index) until the value is the same 
+// as the index - then you have found the root/ key of the set
+
 // All based on this resource:
 // https://www.cs.princeton.edu/~rs/AlgsDS07/01UnionFind.pdf
 // this should all be a classes
@@ -223,4 +232,46 @@ var findCircleNum = function(M) {
     // return number of distinct sets in setMap
     console.log('setMap ', setMap)
     return new Set([ ...setMap]).size;
+};
+
+// This problem we can actually solve with just a simple very similar DFS
+
+var findCircleNum = function(M) {
+    
+    const visited = new Set();
+    let separateGroups = 0;
+    const queue = [];
+    const N = M[0].length;
+    
+    for(let i=0; i<N; i++) {
+        // all nodes start in their own set
+        queue.push(i);
+    }
+    
+    
+    const DFS = (node, visited, M) => {
+        visited.add(node);
+        const neighbours = M[node];
+        const trueNeighbours = [];
+        neighbours.forEach((neighbour, index) => {
+            if (index !== node && neighbour === 1) {
+                trueNeighbours.push(index);
+            }
+        })
+        trueNeighbours.forEach(trueNeighbour => {
+            if (!visited.has(trueNeighbour)) {
+                DFS(trueNeighbour, visited, M)
+            }
+        })
+    }
+    
+    while(queue.length) {
+        const node = queue.pop();
+        if (!visited.has(node)) {
+            separateGroups++;
+            DFS(node, visited, M);
+        }
+    }
+
+    return separateGroups;
 };
