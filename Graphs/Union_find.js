@@ -1,4 +1,16 @@
 
+// It may seem that DFS can easily solve all Union Find problems
+// however this isn't so
+// if a graph is undirected - then yes DFS can solve the problem fairly easily
+// but when a graph is directed Union Find really shows its value (using its more complex find root and unify methods)
+// consider a directed graph with the edges 1-->2-->3-->4-->5
+// with DFS you start at node 1 and get to 5 - putting them as one set
+// but what if there is another edge
+// 6-->5
+// DFS will be passed 6 by the queue and but 6 and 5 together
+// it doesn't realise as union find would that 6 is actually part of this former set
+// this is the value of Union Find vs DFS
+
 // Union and Find are just the name of two operations
 // the key to this 'algorithm' is actually the data structure used
 // the disjoin set structure
