@@ -24,6 +24,15 @@
 // https://www.cs.princeton.edu/~rs/AlgsDS07/01UnionFind.pdf
 // this should all be a classes
 
+/*
+A nicer way of doing the find compression is:
+// smart as does compression and find in two lines
+const findRoot = (index, setMap) => {
+    if (index === setMap[index]) return index;
+    return setMap[index] = findRoot(setMap[index], setMap);
+}
+*/
+
 const noOptimisationsUnionFind = (graph) => {
 
     const setsRecord = [];
