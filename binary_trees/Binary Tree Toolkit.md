@@ -1,3 +1,4 @@
+
 # Binary Tree Toolkit
 
 ![diff](https://leetcode.com/problems/binary-tree-right-side-view/Figures/199_rewrite/traversals.png)
@@ -343,4 +344,32 @@ This cannot be done as the InOrder traversal data doesn't not give you sufficien
 
 The most unbalanced BST is a BST where the elements were inserted in ascending or descending order. In this case height will equal number of elements. To create a balanced tree we want to recursively add the middle element of the array to the tree such that half the remaining elements to be inserted will have a greater value and half will have a smaller value.
 
+![enter image description here](https://i.imgur.com/94MZz6D.png)
 
+   Question on the topic: https://leetcode.com/problems/balance-a-binary-search-tree/
+
+	var balanceBST = function(root) {
+		// get elements in order
+		const orderedElements = [];
+		const traverse = (node) => {
+			if (node) {
+				traverse(node.left);
+				orderedElements.push(node.val);
+				traverse(node.right);
+			}
+		}
+		traverse(root);
+
+		// build the balanced tree
+		const pushMiddle = (left, right) => {
+			let node = null;
+			if (right >= left) {
+				let middle = Math.floor((right-left)/2) + left;
+				node = new TreeNode(orderedElements[middle]);
+				node.left = pushMiddle(left, middle-1);
+				node.right = pushMiddle(middle+1, right);
+			}
+			return node;
+		}
+		return pushMiddle(0, orderedElements.length-1);
+	};
