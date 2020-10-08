@@ -9,6 +9,7 @@ Other operations that are essential to know are:
 1. How to validate  a tree
 2. Building BSTs from traversal data
 3. Building BTs from traversal data
+4. Balancing BSTs
 
 # Breadth First Traversal
 
@@ -337,3 +338,9 @@ https://www.techiedelight.com/build-binary-search-tree-from-postorder-sequence/#
 ### Building a BST from InOrder traversal data
 
 This cannot be done as the InOrder traversal data doesn't not give you sufficient information to identify the exact structure of the BST. You can of course build a BST using InOrder data but there is no guarantee it will have the same structure that the data is from.
+
+# Balancing a BST
+
+The most unbalanced BST is a BST where the elements were inserted in ascending or descending order. In this case height will equal number of elements. To create a balanced tree we want to recursively add the middle element of the array to the tree such that half the remaining elements to be inserted will have a greater value and half will have a smaller value.
+
+
