@@ -373,3 +373,203 @@ The most unbalanced BST is a BST where the elements were inserted in ascending o
 		}
 		return pushMiddle(0, orderedElements.length-1);
 	};
+
+# Comprehensive BST Class
+
+	class Node {
+		constructor(data) {
+			this.val = data;
+			this.left = null;
+			this.right = null;
+		}
+	}
+
+	class  BinarySearchTree {
+		constructor() {
+			this.root = null;
+		}
+
+		printTree = () => {
+			console.log(this.root);
+		}
+		  
+		insert = (value) => {
+			this.root = this.insertNode(this.root, new  Node(value));
+		}
+		  
+		insertNode = (root, node) => {
+			if (root === null) {
+				return  node;
+			} else  if (root.val >= node.val) {
+				root.left = this.insertNode(root.left, node);
+				return  root;
+			} else {
+				root.right = this.insertNode(root.right, node);
+				return  root;
+			}
+		}
+
+		// recursive is much more reliable and harder to get wrong - use recursive methods
+		iterativeInsert = (value) => {
+			this.iterativeInsertNode(this.root, new  Node(value));
+		}
+
+		iterativeInsertNode = (root, node) => {
+			let  pointer = root;
+			let  prev = pointer;
+			while(pointer !== null) {
+				prev = pointer;
+				if (node.val <= pointer.val) {
+					pointer = pointer.left;
+				} else {
+					pointer = pointer.right;
+				}
+			}
+
+			if (prev === null) {
+				this.root = node;
+			} else  if (node.val <= prev.val) {
+				prev.left = node;
+			} else {
+				prev.right = node;
+			}
+		}	  
+
+		delete = (val) => {
+			return  this.deleteNode(this.root, val);
+		}		  
+
+		deleteNode = (node, valToBeDeleted) => {
+			// node may not exist
+			if (node === null) return  null;
+			
+			// else if we find it
+			if (node.val === valToBeDeleted) {
+				// three cases
+				
+				// 1. has no children
+				if (node.left === null && node.right === null) {
+					return  null;
+					
+				//2. there is one child
+				} else  if (node.left === null) {
+					node = node.left;
+					return  node;
+				//2. there is one child
+				} else  if (node.right === null) {
+					return  node.right;
+					
+				//3. there are two children
+				} else {
+					// get the smallest right hand node, set that as node val, then call delete on the node
+					// that was copied
+					let  successor = node.right;
+					while(successor.left !== null) {
+						successor = successor.left;
+					}
+					node.val = successor.val;
+					this.deleteNode(successor, successor.val);
+					return  node;
+				}
+			} else {
+				if (valToBeDeleted <= node.val) {
+					node.left = this.deleteNode(node.left, valToBeDeleted);
+				} else {
+					node.right = this.deleteNode(node.right, valToBeDeleted);
+				}
+				return  node;
+			}
+		}
+		  
+		find = (value) => {
+			return  this.findNode(this.root, value);
+		}
+		  
+		findNode = (root, val) => {
+			if (root === null) return -1;
+			if (root.val === val) return  root;
+			if (root.val > val) return  this.findNode(root.left, val);
+			return  this.findNode(root.right, val);
+		}  
+
+		findMin = () => {
+			return  this.findMinNode(this.root);
+		}	  
+
+		findMinNode = (root) => {
+			if (root.left === null) return  root;
+			return  this.findMinNode(root.left);
+		}	  
+
+		findMax = () => {
+			return  this.findMaxNode(this.root);
+		}
+		  
+		findMaxNode = (root) => {
+			if (root.right === null) return  root;
+			return  this.findMaxNode(root.right);
+		}
+		  
+		getHeight = () => {
+			return  1 + Math.max(this.getTreeHeight(this.root.left), this.getTreeHeight(this.root.right));
+		}
+
+		getTreeHeight = (root) => {
+			if (root === null) return  0;
+			return  1 + Math.max(this.getTreeHeight(root.left), this.getTreeHeight(root.right));
+		}
+		
+		printLevels = () => {
+			let  height = this.getHeight();
+			for(let  i=1; i<height+1; i++) {
+				this.printLevel(this.root, i);
+				console.log("\n")
+			}
+		}
+
+		printLevel = (node, level) => {
+			if (node === null) return;
+			// prints once we get to level
+			if (level === 1) {
+				console.log(node.val, ' ');
+			} else  if (level > 1) {
+				this.printLevel(node.left, level-1);
+				this.printLevel(node.right, level-1);
+			}
+		}
+
+		// esenntially a queue based BFS
+		iterativePrintLevelsUsingQueue = () => {
+			if(this.root === null) console.log('Root is null');
+			let  queue = [];
+			queue.push(this.root);
+			while(queue.length > 0) {
+				let  counter = queue.length;
+				while(counter > 0) {
+					let  node = queue.shift();
+					console.log(node.val);
+					if (node.left !== null) {
+						queue.push(node.left);
+					}
+					if (node.right !== null) {
+						queue.push(node.right);
+					}
+					counter = counter - 1;
+				}
+				console.log("\n");
+			}
+		}
+	}
+
+	  
+
+	const  test = new  BinarySearchTree();
+	test.iterativeInsert(5);
+	test.iterativeInsert(2);
+	test.iterativeInsert(7);
+	test.iterativeInsert(1);
+	test.iterativeInsert(-1);
+	test.iterativeInsert(3);
+	console.log('Tree height is: ', test.getHeight());
+	test.printTree();
+	test.iterativePrintLevelsUsingQueue();
