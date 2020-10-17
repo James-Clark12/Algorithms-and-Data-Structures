@@ -111,16 +111,4 @@ mh.buildMinHeap();
 console.log(mh.validMinHeapChecker());
 mh.printLevels();
 console.log(mh.heapSort());
-/*
-mh.insert(1);
-mh.insert(4);
-mh.insert(2);
-mh.insert(9);
-mh.insert(3);
-mh.printLevels();
-console.log(mh.extractmax());
-mh.printLevels();
-console.log(mh.extractmax());
-console.log(mh.extractmax());
-mh.printLevels();
-*/
+
