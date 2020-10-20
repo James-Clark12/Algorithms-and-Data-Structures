@@ -1,4 +1,7 @@
-
+/* 
+Great complexity analysis:
+https://stackoverflow.com/questions/9755721/how-can-building-a-heap-be-on-time-complexity
+*/
 
 class MaxHeap {
     // data should be an array
