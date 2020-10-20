@@ -1,0 +1,17 @@
+These are a common question set where you are given some set of data and asked to return the k most frequent instances of an element appearing:
+
+solving is simple:
+
+1. use hashmap to count frequency of instances
+
+and then either:
+
+a). use a efficient quicksort where you sort data but cut out everything but the k elements you care about
+
+b). use a max heap
+
+Good examples:
+
+https://leetcode.com/problems/top-k-frequent-words/
+
+https://leetcode.com/problems/top-k-frequent-elements/solution/
