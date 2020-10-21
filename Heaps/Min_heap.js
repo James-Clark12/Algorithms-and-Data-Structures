@@ -60,13 +60,13 @@ class MinHeap {
     }
     increaseKey = (i, newVal) => {
         if (newVal < this.tree[i]) throw 'error';
-        this.root[i] = newVal;
+        this.tree[i] = newVal;
         this.minHeapify(i);
     }
     decreaseKey = (i, newVal) => {
         if (newVal > this.tree[i]) throw 'error';
-        this.root[i] = newVal;
-        while(i < 0 && this.tree[this.parent(i)] < this.tree[i]) {
+        this.tree[i] = newVal;
+        while(i>0 && this.tree[this.parent(i)] < this.tree[i]) {
             this.swap(i, this.parent(i));
             i = this.parent(i);
         }
@@ -104,11 +104,23 @@ class MinHeap {
     }
 }
 
-const mh = new MinHeap([5,1,2,7,9,12,5,7]);
+const mh = new MinHeap([3,2,11,5,6,2,4,7,6]);
 console.log(mh.validMinHeapChecker());
 mh.printLevels();
 mh.buildMinHeap();
 console.log(mh.validMinHeapChecker());
 mh.printLevels();
-console.log(mh.heapSort());
-
+//console.log(mh.heapSort());
+mh.insert(1); // so inert doesnt work
+mh.insert(4);
+mh.insert(2);
+mh.insert(9);
+mh.insert(3);
+mh.printLevels();
+/*
+console.log(mh.extractmax());
+mh.printLevels();
+console.log(mh.extractmax());
+console.log(mh.extractmax());
+mh.printLevels();
+*/
