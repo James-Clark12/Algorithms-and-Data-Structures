@@ -84,6 +84,7 @@ class Trie {
     findAllWords(node, arr) {
         // base case, if node is at a word, push to output
         if (node.end) {
+          // push whole word to arr
           arr.unshift(this.getWord(node));
         }
         
@@ -159,6 +160,8 @@ class Trie {
   trie.insert("hello");
   trie.insert("helium");
   trie.insert("kickass");
+  trie.insert("kickassed");
+  trie.insert("kickasses");
   
   // check contains method
   console.log(trie.contains("helium"));  // true
@@ -171,4 +174,6 @@ class Trie {
   console.log(trie.find(""));
   trie.remove('helium');
   trie.remove('hello');
+  console.log(trie.find(""));
+  trie.remove('kickass');
   console.log(trie.find(""));
